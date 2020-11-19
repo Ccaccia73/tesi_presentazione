@@ -25,6 +25,7 @@
 
 
 \setbeamertemplate{footline}[navigation]
+\setbeamertemplate{caption}[numbered]
 
 %%% TITLE PAGE INFO:
 \title[Heverlee \LaTeX\ Beamer theme]{Fluid-Structure Interaction}
@@ -73,13 +74,103 @@
 
 
 \begin{frame}{FSI}
-    \begin{itemize}
-        \item what is fsi
-        \item claim and image        
-    \end{itemize}
+What is (not) FSI?
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/valve.png}
+            \caption{FEM with pressure load}
+        \end{figure}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth,trim=0 25 0 0,clip]{images/valve_cfd.png}
+            \caption{CFD with moving domain}
+        \end{figure}
+    \end{columns}
+    
+    \pause
+    
+    \begin{enumerate}
+        \item fluid represented as a pressure field
+        
+        \pause
+        
+        \item solid considered rigid
+    \end{enumerate}
+    
+    \pause
+    
+    \vskip 5mm
+    
+   \textcolor{red}{Only one domain (solid/fluid) needs to be simulated}
+    
+    
 \end{frame}
 
-\begin{frame}{Partitioned approach}
+
+\begin{frame}{FSI}
+What is FSI?
+
+    \begin{itemize}
+        \item fluid forces change the shape of the structure
+        
+        \pause
+        
+        \item structure deformation change the fluid domain and the flow
+    \end{itemize}
+    
+    \pause
+
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth,trim=0 100 0 100,clip]{images/flap1.png}
+            \caption{cylinder flap}
+        \end{figure}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth,trim=0 100 0 100,clip]{images/naca.png}
+            \caption{wing deformation}
+        \end{figure}
+    \end{columns}
+    
+    \pause
+    
+    
+    \vskip 5mm
+    
+   \textcolor{red}{Fluid and solid interact and need to be simulated together}
+    
+    
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{solution techniques}
+
+   \begin{columns}
+        \column{0.5\textwidth}
+            \begin{block}{Monolithic Approach}
+	        Text for generic block ...
+	        \end{block}
+	        \pause
+        \column{0.5\textwidth}
+	        \begin{exampleblock}{Partitioned Approach}
+	        Text for example block ...
+	        \end{exampleblock}
+
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Partitioned Approach}
     \begin{itemize}
         \item meaning
         \item advantages
