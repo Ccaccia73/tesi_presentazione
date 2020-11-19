@@ -1,6 +1,8 @@
 \documentclass[10pt,t]{beamer}
 \usetheme{Heverlee}
 
+\usepackage{tikz} % serve per fare i grafici
+\usetikzlibrary{shapes,quotes,arrows.meta}
 
 %%% QUICK OPTIONS:
 % (A) Math font without serifs, enable line below to make math serif:
@@ -155,18 +157,57 @@ What is FSI?
 
 \begin{frame}{solution techniques}
 
-   \begin{columns}
-        \column{0.5\textwidth}
-            \begin{block}{Monolithic Approach}
-	        Text for generic block ...
-	        \end{block}
+\begin{columns}
+    \column{0.6\textwidth}
+
+\vspace{-5mm}
+\begin{block}{Monolithic Approach}
+\begin{figure}[htbp!]
+	\centering
+	\begin{tikzpicture}[scale=1]
+
+
+	\tikzstyle{status}=[draw,rectangle,rounded corners,fill=green!10,text centered,inner sep=4pt, anchor=south west, minimum width=1.6cm,minimum height=1.2cm]
+	%
+	\draw[->] (0,0.6)-- (0.6,0.6) node[] {};
+	
+	\draw[->] (2.2,0.6)-- (3.2,0.6) node[midway,above] {$\Delta t$}; % node[midway,below] {step};
+
+	\draw[->] (4.8,0.6)-- (5.4,0.6) node[] {};
+
+	\node[status] (t1) at (0.6,0)  {
+		\begin{tabular}{c}
+			$F(t_n)$ \\
+			$S(t_n)$
+	\end{tabular}};
+
+	\node[status] at (3.2,0) {
+	\begin{tabular}{c}
+		$F(t_{n+1})$ \\
+		$S(t_{n+1})$
+\end{tabular}};
+	
+	\end{tikzpicture}
+\end{figure}
+\end{block}
+
+\column{0.4\textwidth}
+    \begin{itemize}
+        \item specialized ad hoc solver
+        \item shared interface
+        \item very specific
+    \end{itemize}
+
+
+
+\end{columns}
+
+
 	        \pause
-        \column{0.5\textwidth}
 	        \begin{exampleblock}{Partitioned Approach}
 	        Text for example block ...
 	        \end{exampleblock}
 
-    \end{columns}
 \end{frame}
 
 
