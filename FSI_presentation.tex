@@ -13,7 +13,7 @@
     %\titlegraphic{\includegraphics[height=2.7cm]{example_figure.pdf}}
 
 % (D) Add logo to bottom right-corner (optional)
-    \logo{\includegraphics[height=0.7cm]{logo.png}\hspace{12pt}\vspace{-6pt}}      
+    \logo{\includegraphics[height=0.82cm]{images/logo-polimi.png}\hspace{12pt}\vspace{-6pt}}      
 
 % (E) Choose one (or none) of these lines to add footline bar on all frames
     %\setbeamertemplate{footline}[infoline]  % author, title, insitute
@@ -24,13 +24,14 @@
     %\usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.45,debug]{beamerposter} 
 
 
+\setbeamertemplate{footline}[navigation]
 
 %%% TITLE PAGE INFO:
-\title[Heverlee \LaTeX\ Beamer theme]{Heverlee Beamer theme}
-\subtitle{\textbackslash usetheme\{Heverlee\}}
-\author{John Doe}
-\institute{Placeholder University}
-\date{September 2020}
+\title[Heverlee \LaTeX\ Beamer theme]{Fluid-Structure Interaction}
+\subtitle{based on co-simulation with Multibody Dynamics}
+\author{Claudio Caccia}
+\institute{Politecnico di Milano}
+\date{December 2020}
 
 % Text inside {} is used on the title page. Text inside [] is optional, and is used in footline bar (if [] is omitted then text from {} will be used in both ; if [] is specified but left empty then the footline will not show any text)
 
@@ -43,9 +44,9 @@
 \begin{document}
 % Title page
 
-{
 % Change image, or delete this line to remove background image
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
+% TODO get image
+{\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
  %   abudhabi      cherry      forest      river
  %   alishan       chobe       leuven      sanfancisco
  %   blueprint     columns     library     uyuni
@@ -58,19 +59,120 @@
 \end{frame}
 }		
 
-
 % Table of contents slide
 \begin{frame}{Outline}
+	\vskip 2mm
+	Pipolauro?
 	\vskip 2mm
 	\hfill	{\large \parbox{.95\textwidth}{\tableofcontents[hideothersubsections]}}
 \end{frame}
 
 
+% SECTION 1
+\section[FSI solutions]{FSI solution techniques}
+
+
+\begin{frame}{FSI}
+    \begin{itemize}
+        \item what is fsi
+        \item claim and image        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Partitioned approach}
+    \begin{itemize}
+        \item meaning
+        \item advantages
+        \item scheme
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Explicit vs. Implicit coupling}
+    \begin{itemize}
+        \item what is fsi
+        \item claim and image
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Added Mass Instability}
+    \begin{itemize}
+        \item what is fsi
+        \item claim and image
+    \end{itemize}
+\end{frame}
+
+
+\section{MBDyn and preCICE}
+
+\begin{frame}{MBDyn}
+    
+    \begin{itemize}
+        \item multibody solver
+        \item beam elements
+        \item mapping
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{preCICE}
+    \begin{itemize}
+        \item implementation of coupling
+        \item mapping of quantities
+    \end{itemize}
+\end{frame}
+
+\section{Adapter}
+
+\begin{frame}{MBDyn adapter}
+    \begin{itemize}
+        \item APIs from preCICE and MBDyn
+        \item bla
+    \end{itemize}
+\end{frame}
+
+\section{Test Cases}
+
+\begin{frame}{Square Bluff Body}
+
+    
+\end{frame}
+
+\begin{frame}{Turek-Hron FSI2 Benchmark}
+
+    
+\end{frame}
+
+
+\begin{frame}{Turek-Hron FSI3 Benchmark}
+
+    
+\end{frame}
+
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions}
+    
+\end{frame}
+
+\begin{frame}{Future Development}
+    
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=gray}
+\begin{frame}[c,plain]{}
+    \centering
+    \textcolor{white}{Thank you}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TEMPLATE
 
  %%
  %%  SECTION 1 - BASIC EXAMPLES
  %%
-\section{Basic examples}
+%\section{Basic examples}
 
 \begin{frame}{Color palette}\label{colorpalette}
 Recommended, predefined colours
@@ -171,7 +273,7 @@ These buttons can link to any frame, figure, table, theorem, section, or anythin
  %%
  %%  SECTION 2 - ITEMIZATION
  %%
-\section{Itemization and enumeration examples} \label{sec:items}
+%\section{Itemization and enumeration examples} \label{sec:items}
 \begin{frame}{Itemize}
 (default)
 \begin{itemize}
@@ -325,7 +427,7 @@ These buttons can link to any frame, figure, table, theorem, section, or anythin
  %%
  %%  SECTION 3 - OPTIONS
  %%
-\section{Quick options \& customisation}
+%\section{Quick options \& customisation}
 
 \begin{frame}[fragile]{(A) Math font}
 In preamble of demo.tex there are a few options to easily modify or customise your presentation 
@@ -456,7 +558,7 @@ To change to serif math everywhere
  %%
  %%  SECTION 4 - GALLERY
  %%
-\section{Title page background templates gallery}
+%\section{Title page background templates gallery}
 \begin{frame}[fragile]{First page background}\label{background_image}
     \begin{itemize}
         \item Easily change first page background image with a selection of templates, or any photo you want (change filename \textcolor{red}{in red})
