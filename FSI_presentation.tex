@@ -1,6 +1,9 @@
 \documentclass[10pt,t]{beamer}
 \usetheme{Heverlee}
 
+\usepackage{svg}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
 \usepackage{tikz} % serve per fare i grafici
 \usetikzlibrary{shapes,quotes,arrows.meta}
 
@@ -72,7 +75,7 @@
 
 
 % SECTION 1
-\section[FSI solutions]{FSI solution techniques}
+\section[FSI techniques]{FSI solution techniques}
 
 
 \begin{frame}{FSI}
@@ -157,84 +160,189 @@ What is FSI?
 
 \begin{frame}{solution techniques}
 
-\begin{columns}
-    \column{0.6\textwidth}
+%\begin{columns}
+%    \column{0.6\textwidth}
 
-\vspace{-5mm}
+\vspace{5mm}
 \begin{block}{Monolithic Approach}
 \begin{figure}[htbp!]
 	\centering
 	\begin{tikzpicture}[scale=1]
+        \tikzstyle{status}=[draw,rectangle,rounded corners,fill=green!10,text centered,inner sep=4pt, anchor=south west, minimum width=1.6cm,minimum height=1.2cm]
+	    
+	    \draw[->] (0,0.6)-- (0.6,0.6) node[] {};
+	    
+	    \draw[->] (2.2,0.6)-- (3.2,0.6) node[midway,above] {$\Delta t$}; % node[midway,below] {step};
+        
+	    \draw[->] (4.8,0.6)-- (5.4,0.6) node[] {};
 
-
-	\tikzstyle{status}=[draw,rectangle,rounded corners,fill=green!10,text centered,inner sep=4pt, anchor=south west, minimum width=1.6cm,minimum height=1.2cm]
-	%
-	\draw[->] (0,0.6)-- (0.6,0.6) node[] {};
-	
-	\draw[->] (2.2,0.6)-- (3.2,0.6) node[midway,above] {$\Delta t$}; % node[midway,below] {step};
-
-	\draw[->] (4.8,0.6)-- (5.4,0.6) node[] {};
-
-	\node[status] (t1) at (0.6,0)  {
-		\begin{tabular}{c}
-			$F(t_n)$ \\
-			$S(t_n)$
-	\end{tabular}};
-
-	\node[status] at (3.2,0) {
-	\begin{tabular}{c}
-		$F(t_{n+1})$ \\
-		$S(t_{n+1})$
-\end{tabular}};
+	    \node[status] (t1) at (0.6,0)  {
+		    \begin{tabular}{c}
+			    $F(t_n)$ \\
+			    $S(t_n)$
+	        \end{tabular}};
+        
+        \node[status] at (3.2,0) {
+	        \begin{tabular}{c}
+		        $F(t_{n+1})$ \\
+		        $S(t_{n+1})$
+            \end{tabular}};
 	
 	\end{tikzpicture}
 \end{figure}
 \end{block}
 
-\column{0.4\textwidth}
+\pause
+\vspace{5mm}
+%\column{0.4\textwidth}
     \begin{itemize}
+        \itemsep 5pt
         \item specialized ad hoc solver
         \item shared interface
         \item very specific
     \end{itemize}
 
+%\end{columns}
+
+\end{frame}
+
+\begin{frame}{Solution techniques}
+
+\begin{exampleblock}{Partitioned Approach}
+
+\begin{figure}[htbp!]
+	\centering
+	\begin{tikzpicture}[scale=1]
+
+	\tikzstyle{solver}=[draw,rectangle,rounded corners,text centered,inner sep=10pt, anchor=south west, minimum width=2cm,minimum height=1cm]
+	\tikzstyle{coupling}=[draw, ellipse, fill=yellow!75, minimum width=2cm, minimum height=1cm, align=center]
+
+	\node[solver,fill=blue!20] at (1,3.8) {$F(t_n)$};
+	\node[solver,fill=blue!20] at (5,3.8) {$F(t_{n+1})$};
+	
+	\node[solver,fill=orange!50] at (1,0) {$S(t_n)$};
+	\node[solver,fill=orange!50] at (5,0) {$S(t_{n+1})$};
+	
+	\draw[->] (0,0.5)-- (1,0.5) node[] {};
+	\draw[->] (3,0.5)-- (5,0.5) node[midway,above] {$\Delta t$}; % node[midway,below] {step};
+	\draw[->] (7,0.5)-- (8,0.5) node[] {};
 
 
-\end{columns}
+	\draw[->] (0,4.3)-- (1,4.3) node[] {};
+	\draw[->] (3,4.3)-- (5,4.3) node[midway,above] {$\Delta t$}; % node[midway,below] {step};
+	\draw[->] (7,4.3)-- (8,4.3) node[] {};
+	
+	\node[draw,fill=yellow!50,ellipse,minimum width=2cm, minimum height=1cm] at (2,2.4) {coupling};
+	\node[draw,fill=yellow!50,ellipse,minimum width=2cm, minimum height=1cm] at (6,2.4) {coupling};
 
+	\draw[->] (1.7,1.1)-- (1.7,1.9) node[midway,left] {$\vec{v}$};
+	\draw[->] (2.3,1.9)-- (2.3,1.1) node[midway,right] {$\bm{\sigma}$};
 
-	        \pause
-	        \begin{exampleblock}{Partitioned Approach}
-	        Text for example block ...
-	        \end{exampleblock}
+	\draw[->] (1.7,2.9)-- (1.7,3.8) node[midway,left] {$\vec{v}$};
+	\draw[->] (2.3,3.8)-- (2.3,2.9) node[midway,right] {$\bm{\sigma}$};
+
+	\draw[->] (5.7,1.1)-- (5.7,1.9) node[midway,left] {$\vec{v}$};
+	\draw[->] (6.3,1.9)-- (6.3,1.1) node[midway,right] {$\bm{\sigma}$};
+
+	\draw[->] (5.7,2.9)-- (5.7,3.8) node[midway,left] {$\vec{v}$};
+	\draw[->] (6.3,3.8)-- (6.3,2.9) node[midway,right] {$\bm{\sigma}$};
+		
+	\end{tikzpicture}
+	%\caption{partitioned approach: $S_f$, $S_s$ denote the fluid and the structure solutions, while $\bm{\sigma}$ and $\vec{v}$ represent coupling data}
+	%\label{fig:partitioned}
+\end{figure}
+\end{exampleblock}
 
 \end{frame}
 
 
 \begin{frame}{Partitioned Approach}
     \begin{itemize}
-        \item meaning
-        \item advantages
-        \item scheme
+        \item  3 Different software modules
+            \begin{enumerate}
+                \itemsep 5pt
+                \item \textbf{CFD} solver
+                \item \textbf{CSM} solver
+                \item coupling software for \textcolor{red}{data exchange}
+            \end{enumerate}
+        \vspace{5mm}
+        \pause
+        \item Software modularity is preserved
+        \item Reuse of existing \textcolor{red}{validated} solvers
+        
+        \vspace{5mm}
+        \pause
+        
+        \item The interface is no longer shared
+        
+        \begin{enumerate}
+            \itemsep 5pt
+            \item coupling must be enforced (\textcolor{green}{forces} and \textcolor{pblue}{displacements})
+            \item the solution is \textcolor{red}{exact} up to some convergence criteria
+        \end{enumerate}
     \end{itemize}
 \end{frame}
 
+
 \begin{frame}{Explicit vs. Implicit coupling}
-    \begin{itemize}
-        \item what is fsi
-        \item claim and image
-    \end{itemize}
+
+\begin{block}{Explicit coupling}
+Solvers:
+\begin{itemize}
+    \item \textcolor{dblue}{compute}
+    \item \textcolor{fgreen}{exchange data}
+    \item \textcolor{dorange}{advance} 
+\end{itemize}
+No convergence criteria are applied. It might be unstable.
+\end{block}
+
+\pause
+
+\vspace{5mm}
+\begin{exampleblock}{Implicit coupling}
+Solvers iterate \textcolor{dblue}{computation} and \textcolor{fgreen}{data exchange} until some convergence criteria are met. Then \textcolor{dorange}{advance} to next time step.
+\end{exampleblock}
+\label{coupling}
+\hyperlink{couplingdetails}{\beamergotobutton{Coupling math details}}
+
 \end{frame}
 
 \begin{frame}{Added Mass Instability}
+
+\begin{alertblock}{convergence issues}
+A critical simulation parameter:
+\begin{equation}
+    M = \frac{\rho_F}{\rho_S}
+\end{equation}
+
+when $\approx 1$
+
+\end{alertblock}
+
     \begin{itemize}
-        \item what is fsi
-        \item claim and image
+        \item Explicit coupling may diverge
+        \item Implicit coupling requires many iterations to converge or may diverge 
     \end{itemize}
 \end{frame}
 
 
 \section{MBDyn and preCICE}
+
+\begin{frame}{Frame Title}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/precice.png}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includesvg{images/mbdyn_humbird_text.svg}
+\end{figure}
+
+\end{frame}
+
 
 \begin{frame}{MBDyn}
     
@@ -296,7 +404,16 @@ What is FSI?
     \textcolor{white}{Thank you}
 \end{frame}
 
+\setbeamercolor{background canvas}{bg=white}
+\begin{frame}{Explicit coupling}\label{couplingdetails}
+  bla1  
+\end{frame}
 
+
+\begin{frame}{Implicit coupling}
+  bla2
+  \hyperlink{coupling}{\beamerreturnbutton{}}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TEMPLATE
