@@ -2,10 +2,13 @@
 \usetheme{Heverlee}
 
 \usepackage{svg}
+\usepackage{adjustbox}
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
 \usepackage{tikz} % serve per fare i grafici
 \usetikzlibrary{shapes,quotes,arrows.meta}
+\usepackage{xcolor}
+
 
 %%% QUICK OPTIONS:
 % (A) Math font without serifs, enable line below to make math serif:
@@ -326,10 +329,103 @@ when $\approx 1$
 \end{frame}
 
 
+
+
 \section{MBDyn and preCICE}
 
-\begin{frame}{Frame Title}
+\begin{frame}{\includegraphics[width=.18\textwidth]{images/mbdyn.png}}
 
+\textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software developed here at \textit{DAER}.\\
+
+\pause
+\vspace{5mm}
+
+Main features:
+
+    \begin{itemize}
+        \item simulation of linear and non-linear \textbf{\textcolor{dorange}{dynamics}}
+        \item definition of rigid and flexible elements:\\ \textbf{\textcolor{dblue}{beams}}, shells, component mode synthesis elements...
+        \item subject to various \textbf{\textcolor{pblue}{kinematic constraints}}
+        \item loaded by \textbf{\textcolor{fgreen}{external forces}}
+        \item possibly governed by \textbf{\textcolor{indigo}{control subsystems}}
+    \end{itemize}
+
+\pause
+\vspace{5mm}
+
+Open to perform multi-physics simulations:
+\begin{itemize}
+    \item \textbf{pass} externally computed forces
+    \item \textbf{steer} the simulation
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{\includegraphics[width=.22\textwidth]{images/precice.png}}
+
+\textbf{\textcolor{dorange}{pre}cise \textcolor{pblue}{C}ode \textcolor{pblue}{I}nteraction \textcolor{pblue}{C}oupling \textcolor{pblue}{E}nvironment}
+
+\pause
+\vspace{5mm}
+
+Main features:
+
+    \begin{itemize}
+        \item connection of single-physics solvers
+        \item partitioned multi-physics simulation: FSI, CHT, SSI
+        \item black-box: interface nodes 
+    \end{itemize}
+
+\pause
+\vspace{5mm}
+
+Actions performed: 
+
+\begin{itemize}
+	\item coupling strategy
+	\item acceleration and convergence criteria
+	\item communication between the participants
+	\item mapping of data between meshes 
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{FSI Simulations using MBDyn}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node[inner sep=0pt] (mbdyn) at (0,0)
+            {\includegraphics[width=.25\textwidth]{images/mbdyn.png}};
+        \node[inner sep=0pt] (precice) at (0,-2.5)
+            {\includegraphics[width=.25\textwidth]{images/precice.png}};
+        \node[inner sep=0pt] (of) at (-4,-5) 
+            {\includegraphics[width=.2\textwidth]{images/of.jpeg}};
+        \node[inner sep=0pt] (su2) at (-1.25,-5) 
+            {\includegraphics[width=.12\textwidth]{images/logoSU2.png}};
+        \node[inner sep=0pt] (cfd) at (0.5,-5) 
+            {\includegraphics[width=.14\textwidth]{images/simulation-CFD.png}};
+        \node[inner sep=0pt] (aster) at (4,-5) 
+            {\includegraphics[width=.125\textwidth]{images/Logo_aster.png}};
+        \draw[<->,thick] (mbdyn.south) -- (precice.north)
+            node[midway,fill=white,text=orange] {\large{\textbf{adapter}}};
+         \draw[->,thick] (precice.south) -- (of.north east)
+            node[midway] {};
+         \draw[->,thick] (precice.south) -- (su2.north)
+            node[midway,fill=white, text=cyan] {\large{\textbf{FSI}}};
+         \draw[->,thick] (precice.south) -- (cfd.north)
+            node[midway] {};
+         \draw[->,thick] (precice.south) -- (aster.north west)
+            node[midway,fill=white, text=teal] {\large{\textbf{SSI}}};
+            
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Map}
 
 \begin{figure}
     \centering
@@ -338,27 +434,14 @@ when $\approx 1$
 
 \begin{figure}
     \centering
-    \includesvg{images/mbdyn_humbird_text.svg}
+    \includesvg[width=0.4\textwidth]{images/mbdyn_humbird_text.svg}
 \end{figure}
 
 \end{frame}
 
 
-\begin{frame}{MBDyn}
-    
-    \begin{itemize}
-        \item multibody solver
-        \item beam elements
-        \item mapping
-    \end{itemize}
-\end{frame}
 
-\begin{frame}{preCICE}
-    \begin{itemize}
-        \item implementation of coupling
-        \item mapping of quantities
-    \end{itemize}
-\end{frame}
+
 
 \section{Adapter}
 
