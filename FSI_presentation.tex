@@ -1,6 +1,8 @@
 \documentclass[10pt,t]{beamer}
 \usetheme{Heverlee}
 
+%\usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.45,debug]{beamerposter}
+
 \usepackage{svg}
 \usepackage{adjustbox}
 \usepackage{amsmath,amssymb}
@@ -466,11 +468,58 @@ Actions performed:
 \section{Adapter}
 
 \begin{frame}{MBDyn adapter}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/adapter_scheme.png}
+    \end{figure}
+    
+    \vspace{3mm}
+    
+    \begin{itemize}
+     \itemsep 8pt
+        \item independent from MBDyn code
+        \item APIs from preCICE and MBDyn:
+        \begin{enumerate}
+            \itemsep 5pt
+            \item \texttt{libprecice.so}
+            \item \texttt{libmbc.so} 
+        \end{enumerate}
+        
+        \item composed of 2 C++ classes:
+        \begin{enumerate}
+            \itemsep 5pt
+            \item perform co-simulation
+            \item access and steer the MBDyn simulation, save data
+        \end{enumerate}
+        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Adapter Input}
+
+  \begin{description}[Simulation]
+  \item[preCICE] \textcolor{pblue}{config file, participant name, ...}
+  \item[Simulation] \textcolor{pblue}{mesh location} (used for coupling and mapping)\\
+                    \textcolor{pblue}{data to pass} (displacements or deltas)\\
+                    \textcolor{pblue}{starting ramp configuration} (type, period, ...)
+  \item[Output]     \textcolor{pblue}{vtk file} (location, name, interval, ...)\\
+                    \textcolor{pblue}{resultants} (name, origin for moments, ...)
+  \end{description}
+
     \begin{itemize}
         \item APIs from preCICE and MBDyn
         \item bla
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Adapter Output}
+    \begin{itemize}
+        \item APIs from preCICE and MBDyn
+        \item bla
+    \end{itemize}
+\end{frame}
+
+
 
 \section{Test Cases}
 
@@ -501,11 +550,14 @@ Actions performed:
     
 \end{frame}
 
-\setbeamercolor{background canvas}{bg=gray}
+
+\setbeamercolor{background canvas}{bg=pblue}
 \begin{frame}[c,plain]{}
     \centering
-    \textcolor{white}{Thank you}
+    \large{\textcolor{white}{\textbf{Thank you}}}
 \end{frame}
+
+\section*{other}
 
 \setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Explicit coupling}\label{couplingdetails}
@@ -943,19 +995,19 @@ To change to serif math everywhere
 
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_abudhabi.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_abudhabi.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 {
 \usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_blueprint.jpg}}} 
@@ -973,20 +1025,20 @@ To change to serif math everywhere
 }
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_cherry.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_cherry.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_chobe.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_chobe.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 {
@@ -997,29 +1049,29 @@ To change to serif math everywhere
 }
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_flowers.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_flowers.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_forest.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_forest.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_leuven.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_leuven.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 {
 \usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_library.jpg}}} 
@@ -1028,55 +1080,44 @@ To change to serif math everywhere
 \end{frame}
 }
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_newyork.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_newyork.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_river.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_river.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_sanfrancisco.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
-
-
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_uyuni.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_sanfrancisco.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_uyuni.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_winter.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
 
 
-{
-
-\setbeamercolor{background canvas}{bg=gray}
-\begin{frame}[c,plain]{}
-    \centering
-    \textcolor{white}{Thank you}
-\end{frame}
-
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_winter.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 
