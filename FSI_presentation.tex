@@ -8,7 +8,8 @@
 \usepackage{tikz} % serve per fare i grafici
 \usetikzlibrary{shapes,quotes,arrows.meta}
 \usepackage{xcolor}
-
+\usepackage{subcaption}
+\usepackage{graphicx}
 
 %%% QUICK OPTIONS:
 % (A) Math font without serifs, enable line below to make math serif:
@@ -365,7 +366,7 @@ Open to perform multi-physics simulations:
 
 \textbf{\textcolor{dorange}{pre}cise \textcolor{pblue}{C}ode \textcolor{pblue}{I}nteraction \textcolor{pblue}{C}oupling \textcolor{pblue}{E}nvironment}
 
-\pause
+%\pause
 \vspace{5mm}
 
 Main features:
@@ -425,17 +426,36 @@ Actions performed:
 
 \end{frame}
 
-\begin{frame}{Map}
+\begin{frame}{External Structural Mapping}
 
 \begin{figure}
+  \begin{subfigure}[t]{.486\textwidth}
     \centering
-    \includegraphics[width=0.4\textwidth]{images/precice.png}
+    \includegraphics[width=\linewidth]{images/beams_1a.png}
+    \caption{Model: \textbf{nodes} and \textbf{beams}}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/interf_1a.png}
+    \caption{interface geometry: \textbf{shape}}
+  \end{subfigure}
+
+  \bigskip
+
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/mesh_1b.png}
+    \caption{interface mesh: \textbf{MLS mapping}}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/whole_1aa.png}
+    \caption{\textbf{coupling} to CFD solver}
+  \end{subfigure}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includesvg[width=0.4\textwidth]{images/mbdyn_humbird_text.svg}
-\end{figure}
 
 \end{frame}
 
