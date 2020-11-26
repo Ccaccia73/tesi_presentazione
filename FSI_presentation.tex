@@ -430,6 +430,8 @@ Actions performed:
 
 \begin{frame}{External Structural Mapping}
 
+\textcolor{red}{Decoupling geometry and structural properties:} 
+
 \begin{figure}
   \begin{subfigure}[t]{.486\textwidth}
     \centering
@@ -498,25 +500,43 @@ Actions performed:
 \begin{frame}{Adapter Input}
 
   \begin{description}[Simulation]
-  \item[preCICE] \textcolor{pblue}{config file, participant name, ...}
-  \item[Simulation] \textcolor{pblue}{mesh location} (used for coupling and mapping)\\
-                    \textcolor{pblue}{data to pass} (displacements or deltas)\\
-                    \textcolor{pblue}{starting ramp configuration} (type, period, ...)
-  \item[Output]     \textcolor{pblue}{vtk file} (location, name, interval, ...)\\
-                    \textcolor{pblue}{resultants} (name, origin for moments, ...)
+  \item[preCICE] \textcolor{dorange}{config file, participant name, ...}
+  \item[MBDyn]      \textcolor{red}{simulation file} \\
+                    \textcolor{red}{socket}: send forces and retrieve displacements \\
+  \item[Simulation] \textcolor{teal}{mesh location}: used for coupling and mapping\\
+                    \textcolor{teal}{data to pass}: displacements or deltas\\
+                    \textcolor{teal}{starting ramp configuration}: type, period, ...
+  \item[Output]     \textcolor{indigo}{vtk file}: location, name, time interval, ...\\
+                    \textcolor{indigo}{resultants}: name, origin for moments, ...
   \end{description}
 
-    \begin{itemize}
-        \item APIs from preCICE and MBDyn
-        \item bla
-    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/coeff.png}
+    \end{figure}
+
 \end{frame}
 
 \begin{frame}{Adapter Output}
-    \begin{itemize}
-        \item APIs from preCICE and MBDyn
-        \item bla
-    \end{itemize}
+
+\begin{description}[saved data]
+    \item[*.vtu files] at each node (MBDyn output data)\\
+                    \textcolor{dorange}{Displacements}, \textcolor{red}{Displacement Deltas}\\ 
+                    \textcolor{dblue}{Velocities}\\
+                    \textcolor{indigo}{Forces}
+    \item[.csv file] with resultants, moments at each time step
+    \item[MDByn] simulation output parsed through python file
+\end{description}
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth, trim=0 0 0 200,clip]{images/fsi2_disp.png}
+    \caption{2D FSI example}
+\end{figure}
+
+
 \end{frame}
 
 
