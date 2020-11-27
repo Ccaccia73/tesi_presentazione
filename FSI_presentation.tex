@@ -12,6 +12,9 @@
 \usepackage{xcolor}
 \usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{colortbl}
 
 %%% QUICK OPTIONS:
 % (A) Math font without serifs, enable line below to make math serif:
@@ -106,12 +109,8 @@ What is (not) FSI?
     \begin{enumerate}
         \item fluid represented as a pressure field
         
-        \pause
-        
         \item solid considered rigid
     \end{enumerate}
-    
-    \pause
     
     \vskip 5mm
     
@@ -127,12 +126,9 @@ What is FSI?
     \begin{itemize}
         \item fluid forces change the shape of the structure
         
-        \pause
-        
         \item structure deformation change the fluid domain and the flow
     \end{itemize}
     
-    \pause
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -340,7 +336,7 @@ when $\approx 1$
 
 \textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software developed here at \textit{DAER}.\\
 
-\pause
+
 \vspace{5mm}
 
 Main features:
@@ -513,6 +509,7 @@ Actions performed:
     \begin{figure}
         \centering
         \includegraphics[width=0.4\textwidth]{images/coeff.png}
+        \caption{scaling factor at start}
     \end{figure}
 
 \end{frame}
@@ -520,20 +517,28 @@ Actions performed:
 \begin{frame}{Adapter Output}
 
 \begin{description}[saved data]
-    \item[*.vtu files] at each node (MBDyn output data)\\
-                    \textcolor{dorange}{Displacements}, \textcolor{red}{Displacement Deltas}\\ 
+    \item[*.vtu files] at each mapped node: \\
+                    \textcolor{dorange}{Displacements}, \textcolor{red}{Deltas}\\ 
                     \textcolor{dblue}{Velocities}\\
-                    \textcolor{indigo}{Forces}
-    \item[.csv file] with resultants, moments at each time step
-    \item[MDByn] simulation output parsed through python file
+                    \textcolor{teal}{Forces}
+    \item[csv file] with resultants and moments at each $\Delta t$
+    \item[MDByn] simulation output parsed through \texttt{python} script
 \end{description}
 
 
 
 \begin{figure}
+ \begin{subfigure}[t]{.486\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth, trim=0 0 0 200,clip]{images/fsi2_disp.png}
+    \includegraphics[width=\linewidth, trim=20 0 0 200,clip]{images/fsi2_disp.png}
     \caption{2D FSI example}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/naca_force.png}
+    \caption{3D FSI example}
+  \end{subfigure}
 \end{figure}
 
 
@@ -543,15 +548,361 @@ Actions performed:
 
 \section{Test Cases}
 
-\begin{frame}{Square Bluff Body}
+\begin{frame}{Square Bluff Body: domain}
+
+\begin{columns}
+    \column{0.6\textwidth}
+    \begin{figure}[t]
+    \vspace*{-1cm}
+	\centering
+	  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, trim=0 0 0 0, clip]{images/sq-cyl/sq-cyl-domain.png}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\textwidth}
+    %\centering
+    \includegraphics[width=0.86\linewidth]{images/sq-cyl/sq_mesh.png}
+  \end{subfigure}
+	
+	
+	
+	
+    \end{figure}
+    
+    \column{0.4\textwidth}
+    	\scriptsize
+		\begin{tabular}{ c c | r } 
+			\multicolumn{2}{c|}{symbol} & value   \\ 
+			\hline
+			H  & [\si{mm}] & $10$     \\
+			L & [\si{mm}] & $40$  \\
+			t  & [\si{mm}] & $0.6$  \\			
+		\end{tabular}
+
+		\vspace{1.5cm}
+		\begin{tabular}{ l c  | c } 
+			\multicolumn{2}{c|}{parameter} & value  \\ 
+			\hline
+			$\rho_F$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{blue!20} $1.18$   \\
+			$\mu$& $\left[\frac{kg}{ms}\right]$ & \cellcolor{blue!20} $1.82 \cdot 10^{-5}$  \\
+			Re &  & \cellcolor{blue!20} $332$ \\
+			$\vec{u}_{\infty}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $0.513$ \\
+			flow & & \cellcolor{blue!20} laminar \\
+			\hline
+			$\rho_S$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{orange!50} 100    \\
+			E & [\si{Pa}] & \cellcolor{orange!50} $2.5\cdot 10^5$    \\
+			\hline
+			$M$ & & $ \cellcolor{green!10} 1.18\cdot 10^{-2}$     \\
+			\hline
+			$U_R$ & & $ \approx 1\cdot 10^{-2}$  \\
+			$C_Y$ & & $  1.24 \cdot 10^{-6}$  \\			
+
+		\end{tabular}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Square Bluff Body: simulation}
+
+\begin{columns}
+
+\column{0.5\textwidth}    
+
+\begin{figure}[t]
+\vspace*{-0.8cm}
+\centering % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_v1.png}
+  \caption{t=3.37s velocity}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_p1.png}
+  \caption{t=3.37s pressure}
+\end{subfigure}\hfil % <-- added
+
+\medskip
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_v2.png}
+  \caption{t=3.47s velocity}
+  \label{fig:sq_v2}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_p2.png}
+  \caption{t=3.47s pressure}
+  \label{fig:sq_p2}
+\end{subfigure}\hfil % <-- added
+
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_v3.png}
+  \caption{t=3.53s velocity}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{images/sq-cyl/sq_p3.png}
+  \caption{t=3.53s pressure}
+\end{subfigure}\hfil % <-- added
+
+\end{figure}
+
+\column{0.5\textwidth}
+
+\footnotesize
+\begin{itemize}
+    \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
+    \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
+    \item \textbf{preCICE} configuration:
+    \begin{itemize}
+        \item serial implicit coupling
+        \item mapping: RBF
+        \item acceleration: IQN-ILS
+    \end{itemize}
+    \pause
+    \item \textbf{performance}
+
+\end{itemize}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Square Bluff Body: results}
+
+comparison made on \textbf{tip displacement}
+
+\vspace{0.8cm}
+
+\begin{columns}
+
+
+
+\column{0.5\textwidth}
+
+\begin{figure}[htbp!]
+    \vspace{-1.8cm}
+	\centering
+	\includegraphics[width=0.98\textwidth, trim=20 20 20 50, clip]{images/sq-cyl/disp_sq.png}
+	\caption{tip displacement}
+\end{figure}
+
+\column{0.5\textwidth}
+\scriptsize
+		\begin{tabular}{ l | c  c } 
+			Study & $f$ [Hz] & $d_{y}$ [mm]   \\ 
+			\hline
+            Wall and Ramm & $3.08$ & $13.1$ \\
+            Kassiotis et al.& $2.98$ & $10.5$ \\
+            Wood et al. & $2.94$ & $11.5$ \\
+            Olivier et al. & $3.17$ & $9.5$ \\
+            Walhorn et al. & $3.14$ & $10.2$ \\
+            Matthies and Steindorf  & $3.13$ & $11.8$ \\ 
+            Dettmer and Peric & $3.03$ & $12.5$ \\
+            Habchi et al. & $3.25$ & $10.2$ \\
+            Froehle and Persson  & $3.18$ & $11.2$ \\
+            Sanchez et al. & $3.15$ & $11.5$ \\
+            \hline
+            \cellcolor{green!10}average &\cellcolor{green!10} $3.1$ &\cellcolor{green!10} $11.2$\\
+            \cellcolor{green!10}std. dev. &\cellcolor{green!10} $\pm0.09$ &\cellcolor{green!10} $\pm1.06$\\ 
+            \hline
+            Present study    & $3.067$ & $11.2$ \\
+            
+		\end{tabular}
+
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Turek-Hron FSI2 Benchmark: domain}
+
+
+\begin{columns}
+    \column{0.6\textwidth}
+    \begin{figure}[t]
+    \vspace*{-1.5cm}
+    \hspace*{-0.2cm}
+	\centering
+	  \begin{subfigure}[t]{\textwidth}
+    \centering
+    \includegraphics[width=0.865\textwidth, trim=0 0 50 0, clip]{images/FSI2/FSI2.png}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\textwidth}
+    %\centering
+    \includegraphics[width=0.9\textwidth]{images/FSI2/FSI2-mesh.png}
+  \end{subfigure}
+	
+	
+	
+	
+    \end{figure}
+    
+    \column{0.4\textwidth}
+    	\scriptsize
+		\begin{tabular}{ c c | r } 
+			\multicolumn{2}{c|}{symbol} & value   \\
+			\hline
+			H  & [\si{m}] & $0.41$     \\
+			L &  [\si{m}] & $2.5$  \\
+			l  & [\si{m}] & $0.35$  \\
+			h  & [\si{m}] & $0.02$  \\
+			C  & [\si{m}] & $\left(0.2,0.2 \right)$  \\
+			r  & [\si{m}] & $0.05$  \\
+			\end{tabular}
+
+		\vspace{0.5cm}
+		\begin{tabular}{ l c  | c } 
+			\multicolumn{2}{c|}{parameter} & value  \\ 
+			\hline
+			$\rho_F$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{blue!20} $1000$   \\
+			$\nu$& $\left[\frac{m^2}{s}\right]$ & \cellcolor{blue!20} $1 \cdot 10^{-3}$  \\
+			Re &  & \cellcolor{blue!20} $100$ \\
+			$\vec{u}_{max}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $1.5$ \\
+			$\bar{u}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $1$ \\
+			flow & & \cellcolor{blue!20} laminar \\
+			\hline
+			$\rho_S$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{orange!50} $10000$    \\
+			E & [\si{Pa}] & \cellcolor{orange!50} $1.4\cdot 10^6$    \\
+			\hline
+			$M$ & & $ \cellcolor{green!10} 0.1$     \\
+			\hline
+			$U_R$ & & $ 8.45\cdot 10^{-2}$  \\
+			$C_Y$ & & $  7.14 \cdot 10^{-4}$  \\			
+
+		\end{tabular}
+\end{columns}
+
 
     
 \end{frame}
 
-\begin{frame}{Turek-Hron FSI2 Benchmark}
 
-    
+
+\begin{frame}{Turek-Hron FSI2 Benchmark: simulation}
+
+\begin{columns}
+
+\column{0.5\textwidth}    
+
+\begin{figure}[htb]
+\vspace*{-0.8cm}
+\centering % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_v1.png}
+  \caption{t=5.0s velocity}
+  \label{fig:fsi2_v1}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_p1.png}
+  \caption{t=5.0s pressure}
+  \label{fig:fsi2_p1}
+\end{subfigure}\hfil % <-- added
+
+\medskip
+
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_v2.png}
+  \caption{t=5.135s velocity}
+  \label{fig:fsi2_v2}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_p2.png}
+  \caption{t=5.135s pressure}
+  \label{fig:fsi2_p2}
+\end{subfigure}\hfil % <-- added
+
+\medskip
+
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_v3.png}
+  \caption{t=5.27s velocity}
+  \label{fig:fsi2_v3}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth, trim=0 120 0 120, clip]{images/FSI2/fsi2_p3.png}
+  \caption{t=5.27s pressure}
+  \label{fig:fsi2_p3}
+\end{subfigure}\hfil % <-- added
+
+%\caption{FSI2: fluid solution}
+\label{fig:FSI2_sol}
+\end{figure}
+
+\column{0.5\textwidth}
+
+\footnotesize
+\begin{itemize}
+    \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
+    \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
+    \item \textbf{preCICE} configuration:
+    \begin{itemize}
+        \item serial implicit coupling
+        \item mapping: RBF
+        \item acceleration: IQN-ILS
+    \end{itemize}
+    \pause
+    \item \textbf{performance}
+\end{itemize}
+
+\end{columns}
+
 \end{frame}
+
+
+\begin{frame}{Turek-Hron FSI2 Benchmark: results}
+
+comparison made on \textbf{tip displacement} and \textbf{forces}
+
+\Huge
+TODO
+\vspace{0.8cm}
+
+\begin{columns}
+
+
+
+\column{0.5\textwidth}
+
+\begin{figure}[htbp!]
+    \vspace{-1.8cm}
+	\centering
+	\includegraphics[width=0.98\textwidth, trim=20 20 20 50, clip]{images/sq-cyl/disp_sq.png}
+	\caption{tip displacement}
+\end{figure}
+
+\column{0.5\textwidth}
+\scriptsize
+		\begin{tabular}{ l | c  c } 
+			Study & $f$ [Hz] & $d_{y}$ [mm]   \\ 
+			\hline
+            Wall and Ramm & $3.08$ & $13.1$ \\
+            Kassiotis et al.& $2.98$ & $10.5$ \\
+            Wood et al. & $2.94$ & $11.5$ \\
+            Olivier et al. & $3.17$ & $9.5$ \\
+            Walhorn et al. & $3.14$ & $10.2$ \\
+            Matthies and Steindorf  & $3.13$ & $11.8$ \\ 
+            Dettmer and Peric & $3.03$ & $12.5$ \\
+            Habchi et al. & $3.25$ & $10.2$ \\
+            Froehle and Persson  & $3.18$ & $11.2$ \\
+            Sanchez et al. & $3.15$ & $11.5$ \\
+            \hline
+            \cellcolor{green!10}average &\cellcolor{green!10} $3.1$ &\cellcolor{green!10} $11.2$\\
+            \cellcolor{green!10}std. dev. &\cellcolor{green!10} $\pm0.09$ &\cellcolor{green!10} $\pm1.06$\\ 
+            \hline
+            Present study    & $3.067$ & $11.2$ \\
+            
+		\end{tabular}
+
+
+\end{columns}
+
+\end{frame}
+
+
+
 
 
 \begin{frame}{Turek-Hron FSI3 Benchmark}
@@ -577,7 +928,7 @@ Actions performed:
     \large{\textcolor{white}{\textbf{Thank you}}}
 \end{frame}
 
-\section*{other}
+\section*{further info}
 
 \setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Explicit coupling}\label{couplingdetails}
@@ -589,6 +940,43 @@ Actions performed:
   bla2
   \hyperlink{coupling}{\beamerreturnbutton{}}
 \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TEMPLATE
