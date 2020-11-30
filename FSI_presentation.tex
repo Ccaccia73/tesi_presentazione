@@ -1010,12 +1010,77 @@ At present time this setup \textcolor{red}{does not converge}
 
 \begin{frame}{Conclusions}
 
+%\large
+
+\textcolor{pblue}{\textbf{Goals}}:
+
+\begin{itemize}
+    \item Exploit \textbf{MBDyn} capabilities to perform fluid-structure co-simulation
+    \item Integrate \textit{MBDyn} with \textbf{preCICE} to guarantee a common interface to multiple CFD solvers
+    \item validate the \textbf{FSI} simulation with the proposed setup
+\end{itemize}
+
+\pause
+
+\vspace{0.5cm}
+
+\textcolor{teal}{\textbf{Results}}:
+
+\begin{itemize}
+    \item the \textcolor{dblue}{\textbf{adapter}} has been developed and verified
+    \item Solutions comparable with benchmarks (bluff body, FSI2...)
+\end{itemize}
+
+\pause
+
+\vspace{0.5cm}
+
+\textcolor{dorange}{\textbf{Open points}}:
+
+\begin{itemize}
+    \item Convergence issues when \textit{mass ratio} $\rightarrow 1$ 
+\end{itemize}
+
 
 
 \end{frame}
 
 \begin{frame}{Future Development}
+
+Three possible directions of further development:
+
+\pause
+
+\begin{enumerate}
+    \item Software side
+        
+        \begin{itemize}
+            \item improve usability
+            \item reduce/avoid redundancy
+            \item internal optimizations (data handling, mesh topology...)
+        \end{itemize}    
+
+\pause
     
+    \item Simulation side
+    
+        \begin{itemize}
+            \item Reduce, possibly solve, convergence issues with \textit{mass ratio}
+            \item Verify scalability, with more complex 3D cases
+        \end{itemize}
+
+\pause
+    
+    \item Application side
+    
+        \begin{itemize}
+            \item Find further, different benchmarks (other than incompressible flow), users and cases
+            \item Use or extend this setup also for \textbf{SSI} problems 
+        \end{itemize}
+    
+\end{enumerate}
+
+
 \end{frame}
 
 
