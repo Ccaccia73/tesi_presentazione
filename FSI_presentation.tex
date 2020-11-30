@@ -52,6 +52,21 @@
 
 
 
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry%
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+
+
+
 
  %%
  %%  0. TITLE PAGE and TABLE OF CONTENT
@@ -651,14 +666,20 @@ Actions performed:
 \begin{itemize}
     \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
     \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
+    \begin{itemize}
+        \item $\approx 29k$ \texttt{hex} cells
+    \end{itemize}
     \item \textbf{preCICE} configuration:
     \begin{itemize}
         \item serial implicit coupling
         \item mapping: RBF
         \item acceleration: IQN-ILS
     \end{itemize}
-    \pause
+    %\pause
     \item \textbf{performance}
+    \begin{itemize}
+        \item 8 avg. iterations to converge
+    \end{itemize}
 
 \end{itemize}
 
@@ -668,7 +689,7 @@ Actions performed:
 
 \begin{frame}{Square Bluff Body: results}
 
-comparison made on \textbf{tip displacement}
+comparison made on \textbf{vertical tip displacement}
 
 \vspace{0.8cm}
 
@@ -729,10 +750,10 @@ comparison made on \textbf{tip displacement}
     \centering
     \includegraphics[width=0.865\textwidth, trim=0 0 50 0, clip]{images/FSI2/FSI2.png}
   \end{subfigure}
-  \hfill
   \begin{subfigure}[t]{\textwidth}
     %\centering
-    \includegraphics[width=0.9\textwidth]{images/FSI2/FSI2-mesh.png}
+    \hspace{3pt}
+    \includegraphics[width=0.89\textwidth]{images/FSI2/FSI2-mesh.png}
   \end{subfigure}
 	
 	
@@ -837,14 +858,20 @@ comparison made on \textbf{tip displacement}
 \begin{itemize}
     \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
     \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
+    \begin{itemize}
+        \item $\approx 25k$ \texttt{hex} cells
+    \end{itemize}
     \item \textbf{preCICE} configuration:
     \begin{itemize}
         \item serial implicit coupling
         \item mapping: RBF
         \item acceleration: IQN-ILS
     \end{itemize}
-    \pause
+    %\pause
     \item \textbf{performance}
+    \begin{itemize}
+        \item 14.5 avg. iterations to converge
+    \end{itemize}
 \end{itemize}
 
 \end{columns}
@@ -854,67 +881,137 @@ comparison made on \textbf{tip displacement}
 
 \begin{frame}{Turek-Hron FSI2 Benchmark: results}
 
-comparison made on \textbf{tip displacement} and \textbf{forces}
-
-\Huge
-TODO
-\vspace{0.8cm}
-
-\begin{columns}
-
-
-
-\column{0.5\textwidth}
-
+comparison made on \textbf{tip displacements}:
 \begin{figure}[htbp!]
-    \vspace{-1.8cm}
+    %\vspace{-1.8cm}
 	\centering
-	\includegraphics[width=0.98\textwidth, trim=20 20 20 50, clip]{images/sq-cyl/disp_sq.png}
-	\caption{tip displacement}
+	\includegraphics[width=0.65\textwidth, trim=20 20 20 50, clip]{images/FSI2/disp_fsi2.png}
 \end{figure}
 
-\column{0.5\textwidth}
-\scriptsize
-		\begin{tabular}{ l | c  c } 
-			Study & $f$ [Hz] & $d_{y}$ [mm]   \\ 
-			\hline
-            Wall and Ramm & $3.08$ & $13.1$ \\
-            Kassiotis et al.& $2.98$ & $10.5$ \\
-            Wood et al. & $2.94$ & $11.5$ \\
-            Olivier et al. & $3.17$ & $9.5$ \\
-            Walhorn et al. & $3.14$ & $10.2$ \\
-            Matthies and Steindorf  & $3.13$ & $11.8$ \\ 
-            Dettmer and Peric & $3.03$ & $12.5$ \\
-            Habchi et al. & $3.25$ & $10.2$ \\
-            Froehle and Persson  & $3.18$ & $11.2$ \\
-            Sanchez et al. & $3.15$ & $11.5$ \\
-            \hline
-            \cellcolor{green!10}average &\cellcolor{green!10} $3.1$ &\cellcolor{green!10} $11.2$\\
-            \cellcolor{green!10}std. dev. &\cellcolor{green!10} $\pm0.09$ &\cellcolor{green!10} $\pm1.06$\\ 
-            \hline
-            Present study    & $3.067$ & $11.2$ \\
-            
-		\end{tabular}
 
-
-\end{columns}
+\footnotesize
+\begin{center}
+\begin{tabular}{ l | c c | c c  |  } 
+	Study & $d_{x\,tip}$ [\si{mm}] & f [\si{Hz}] & $d_{y\,tip}$ [\si{mm}] & f [\si{Hz}] \\ 
+	\hline
+	\hline
+	Benchmark & $-14.58\pm12.44$ & $3.8$ & $1.23\pm80.6$ & $2.0$ \\
+	Turek et al. (2010) & $-14.85\pm12.70$ & $3.86$ & $1.30\pm81.7$ & $1.93$ \\
+	Gjertsen & $-14.83\pm13.11$ & & $1.24\pm81.6$ & \\
+	Degroote & $-14.07\pm12.37$ & $3.7$ & $1.18\pm76.5$ & $1.9$ \\
+	\hline
+	Present study & $-14.95\pm9.85$ & $3.87$ & $2.78\pm83.39$ & $1.93$ \\ 
+\end{tabular}
+    
+\end{center}
 
 \end{frame}
 
+\begin{frame}{Turek-Hron FSI2 Benchmark: results}
+
+and on \textbf{overall lift and drag}:
+\begin{figure}[htbp!]
+    %\vspace{-1.8cm}
+	\centering
+	\includegraphics[width=0.5\textwidth, trim=20 420 20 120, clip]{images/FSI2/forces_fsi2.png}
+\end{figure}
 
 
+\footnotesize
+\begin{center}
+\begin{tabular}{ l | c c | c c  |  } 
+	Study & drag [\si{N.m^{-1}}] & f [\si{Hz}] & lift [\si{N.m^{-1}}] & f [\si{Hz}]    \\ 
+	\hline
+	\hline
+	Benchmark & $208.83\pm73.75$ & $3.8$ & $0.88\pm234.2$ & $2.0$     \\
+	Turek et al. (2010) & $215.06\pm77.63$ & $3.86$ & $0.61\pm237.8$ & $1.93$\\   
+	Gjertsen & $161.50\pm73.75$ & & $0.88\pm234.2$ & \\
+	Degroote  & $217.52\pm84.65$ & $3.7$ & $-0.74\pm267.6$ & $1.9$ \\
+	\hline
+	Present study & $239.13\pm31.93$ & $3.87$ & $3.43\pm308.57$ & $1.93$ \\
+\end{tabular}
+    
+\end{center}
+
+\end{frame}
 
 
 \begin{frame}{Turek-Hron FSI3 Benchmark}
 
+\footnotesize
+\begin{center}
+\begin{tabular}{ l c l | c | c } 
+	\multicolumn{3}{c|}{parameter} & FSI2 & FSI3   \\ 
+	\hline
+	solid density  &  $\rho$ & [\si{kg.m^{-3}}] & $10000$ & $1000$     \\
+	Elastic modulus  & E & [\si{Pa}] & $1.4\cdot 10^6$ & $5.6\cdot 10^6$   \\
+	max flow velocity & $\vec{u}_{max}$ & [\si{m.s^{-1}}] & $1.5$ & $3$ \\
+	mean flow velocity & $\vec{u}$ & [\si{m.s^{-1}}] & $1$ & $2$  \\
+    \hline
+    mass number  &  $M$ & & \cellcolor{red!10} $0.1$ & \cellcolor{red!10} $1$     \\
+	reduced velocity & $U_R$ & & $8.45 \cdot 10^{-2}$  & $2.67\cdot 10^{-2}$  \\
+	Cauchy number  & $C_Y$ & & \cellcolor{yellow!25}  $7.14\cdot 10^{-4}$  & \cellcolor{yellow!25} $7.14\cdot 10^{-4}$  \\
+	Reynolds number & $Re$ & & $100$ & $200$ \\
+\end{tabular}    
+\end{center}
+\normalsize
+\vspace{0.5cm}
+Despite acting on:
+\begin{itemize}
+    \item \textcolor{pblue}{fluid domain}: mesh, convergence...
+    \item \textcolor{dorange}{solid domain}: number of elements, solver...
+    \item \textcolor{teal}{coupling}: convergence, timestep extrapolation, filtering...
+\end{itemize}
+\vspace{0.5cm}
+\large
+At present time this setup \textcolor{red}{does not converge}
     
 \end{frame}
+
+\begin{frame}{Turek-Hron FSI3 Benchmark}
+
+\textbf{Sensitivity analysis}: change $\rho_F$ and $E$ 
+
+
+\footnotesize
+\begin{center}
+	\begin{tabular}{ c | c | c c c c c |} 
+	&  & \multicolumn{5}{c|}{mass ratio} \\
+		
+	$U_R$ & E[\si{MPa}] & 0.1 & 0.2 & 0.25 & 0.5 & 1 \\
+	\hline
+    $1.41\cdot 10^{-4}$ & $2\cdot 10^{5}$ & \cellcolor{green!10}2.204 & \cellcolor{green!10} & \cellcolor{green!10}2.618 & \cellcolor{green!10}3.126 & \cellcolor{green!10}4.418 \\
+	$6.32\cdot 10^{-4}$ & $1\cdot 10^{4}$ & \cellcolor{green!10} & \cellcolor{green!10}15.024 & \cellcolor{green!10}43.1 & \cellcolor{red!10} & \cellcolor{red!10} \\        
+	$2\cdot 10^{-3}$ & $1\cdot 10^{3}$ & \cellcolor{green!10}23.46 & \cellcolor{green!10} & \cellcolor{green!10}10.78 & \cellcolor{red!10} & \cellcolor{red!10} \\
+	$6.32\cdot 10^{-3}$ & $1\cdot 10^{2}$ & \cellcolor{green!10} & \cellcolor{green!10}7.592 & \cellcolor{green!10}11.788 & \cellcolor{red!10} & \cellcolor{red!10} \\
+	$1.41\cdot 10^{-2}$ & $20$ & \cellcolor{green!10}11.46 & \cellcolor{green!10} & \cellcolor{green!10}87.675 & \cellcolor{red!10} & \cellcolor{red!10} \\
+	$2.67\cdot 10^{-2}$ & $5.6$ & \cellcolor{green!10}7.216 & \cellcolor{green!10}36.426 & \cellcolor{red!10} & \cellcolor{red!10} & \cellcolor{red!10}\textbf{FSI3} \\
+	\hline                        
+	\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\normalsize
+
+\textbf{Observations:}
+\begin{itemize}
+    \item limit in \textit{mass ratio}
+    \item Structural stiffness helps
+    \item visible patterns in number of iterations
+\end{itemize}
+
+
+\end{frame}
+
 
 
 \section{Conclusions}
 
 \begin{frame}{Conclusions}
-    
+
+
+
 \end{frame}
 
 \begin{frame}{Future Development}
@@ -928,7 +1025,10 @@ TODO
     \large{\textcolor{white}{\textbf{Thank you}}}
 \end{frame}
 
-\section*{further info}
+
+\miniframesoff
+
+%\section*{further info}
 
 \setbeamercolor{background canvas}{bg=white}
 \begin{frame}{Explicit coupling}\label{couplingdetails}
