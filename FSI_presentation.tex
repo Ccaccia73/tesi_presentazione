@@ -294,7 +294,7 @@ What is FSI?
         
         \begin{enumerate}
             \itemsep 5pt
-            \item coupling must be enforced (\textcolor{green}{forces} and \textcolor{pblue}{displacements})
+            \item coupling must be enforced (\textcolor{teal}{equilibrium} and \textcolor{pblue}{congruence})
             \item the solution is \textcolor{red}{exact} up to some convergence criteria
         \end{enumerate}
     \end{itemize}
@@ -325,22 +325,31 @@ Solvers iterate \textcolor{dblue}{computation} and \textcolor{fgreen}{data excha
 \end{frame}
 
 \begin{frame}{Added Mass Instability}
-
+\label{addedmass}
 \begin{alertblock}{convergence issues}
 A critical simulation parameter:
-\begin{equation}
+$
     M = \frac{\rho_F}{\rho_S}
-\end{equation}
+$
 
 when $\approx 1$
 
 \end{alertblock}
 
+\vspace{0.8cm}
+
     \begin{itemize}
         \item Explicit coupling may diverge
         \item Implicit coupling requires many iterations to converge or may diverge 
     \end{itemize}
+
+\vspace{0.8cm}
+
+
+\hyperlink{dimensionless}{\beamergotobutton{Other dimensionless numbers}}
+
 \end{frame}
+
 
 
 
@@ -885,7 +894,7 @@ comparison made on \textbf{tip displacements}:
 \begin{figure}[htbp!]
     %\vspace{-1.8cm}
 	\centering
-	\includegraphics[width=0.65\textwidth, trim=20 20 20 50, clip]{images/FSI2/disp_fsi2.png}
+	\includegraphics[width=0.6\textwidth, trim=20 20 20 50, clip]{images/FSI2/disp_fsi2.png}
 \end{figure}
 
 
@@ -904,6 +913,8 @@ comparison made on \textbf{tip displacements}:
 \end{tabular}
     
 \end{center}
+\vspace{0.2cm}
+Axial flexibility of beams?
 
 \end{frame}
 
@@ -1172,7 +1183,7 @@ At present time this setup \textcolor{red}{does not converge}
 
 \begin{itemize}
     \item implicit integration in time
-    \item k iteration of the same time step up to convergence
+    \item k iterations of the same time step up to convergence
     \item order can be switched
 \end{itemize}
 
@@ -1182,9 +1193,230 @@ At present time this setup \textcolor{red}{does not converge}
 
 
 
+\begin{frame}{acceleration}
+
+  \begin{block}{fixed point equation}
+  \begin{center}
+  $
+  \left\{
+    \begin{aligned}
+        x_s^n&=\phi_s  \circ \phi_f \left(x_s^n \right) \\
+        x_s^n&=H \left(x_s^n \right) \\
+        R(x) &=H \left(x_s^n \right) - x_s^n 
+    \end{aligned}
+    \right.
+  $
+      
+  \end{center}
+  \end{block}  
+
+  \begin{block}{convergence criteria}
+  \begin{center}
+  absolute: $r_x^k \leq \epsilon_{abs}  \quad$  relative: $\frac{r_x^k}{x_k} \leq \epsilon_{rel} $
+      
+  \end{center}
+  \end{block}  
 
 
 
+\end{frame}
+
+
+\begin{frame}{FPI solution}
+
+  \begin{block}{under-relaxation}
+  \begin{center}
+  $x^{n,k+1} = x^{n,k} + \omega \left(H(x^{n,k}) - x^{n,k} \right)  $
+      
+  \end{center}
+  \end{block}  
+  
+  \begin{itemize}
+      \item $\omega$: relaxation factor
+      \item constant under-relaxation
+      \item Aitken
+  \end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}{FPI solution}
+
+  \begin{block}{Quasi-Newton}
+  \begin{center}
+
+  $
+    \begin{aligned}
+        R(x^k)&=r_k \\
+        R(x^k) + \left. \frac{\partial R}{\partial x}\right|_{x^k} \cdot (x^{k+1} -x^k) &= 0 \\
+        x^k +  \underbrace{ \left( \left. \frac{\partial R}{\partial x}\right|_{x^k}  \right)^{-1} \cdot (-r^k) }_{QN}   &=x^{k+1} 
+    \end{aligned}
+  $
+
+  \end{center}
+  \end{block}  
+  
+  \begin{itemize}
+      \item approximation using residuals and data of previous iterations (and time-steps)
+  \end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}{dimensionless numbers}
+\label{dimensionless}
+\begin{exampleblock}{Reduced velocity}
+
+\vspace{0.8cm}
+
+\begin{center}
+    $U_R = \frac{V_0}{\sqrt{\frac{E}{\rho_S}}}$
+\end{center}
+
+
+\end{exampleblock}
+
+
+\begin{itemize}
+    \item ratio between the free fluid velocity and the velocity of elastic waves in a solid
+    \item information on the way the two dynamics are related
+    \item different orders of magnitude
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{dimensionless numbers}
+
+\begin{exampleblock}{Cauchy number}
+
+\begin{center}
+    $C_Y = \frac{\rho_f V_0^2}{E}$
+\end{center}
+
+
+\end{exampleblock}
+
+\vspace{0.8cm}
+
+\begin{itemize}
+    \item ratio between the fluid inertial forces, quantified by the dynamic pressure, and the stiffness of the solid
+    \item quantification of how much the solid is elastically deformed by the flow
+\end{itemize}
+
+\vspace{0.8cm}
+
+\hyperlink{addedmass}{\beamerreturnbutton{back}}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Mapping}
+    \begin{exampleblock}{Consistent Mapping}
+        \begin{figure}[htbp!]
+	        \centering
+		\begin{tikzpicture}[scale=0.7]
+			\tikzstyle{n} = [draw, very thick, circle, minimum width=30]
+			\node [n,draw=blue!20] (f1) at (1,2.5) {\scriptsize{$3mm$}};
+			\node [n,draw=blue!20] (f2) at (3,2.5) {\scriptsize{$3mm$}};
+			\node [n,draw=blue!20] (f3) at (5,2.5) {\scriptsize{$1mm$}};
+			\node [n,draw=blue!20] (f4) at (7,2.5) {\scriptsize{$1mm$}};
+			\node [n,draw=blue!20] (f5) at (9,2.5) {\scriptsize{$1mm$}};
+			\node [n,draw=orange!50] (s1) at (3,0) {\scriptsize{$3mm$}};
+			\node [n,draw=orange!50] (s2) at (7,0) {\scriptsize{$1mm$}};
+			
+			\draw [very thick, blue!20] (0,2.5) -- (f1);
+			\draw [very thick, blue!20] (f1) -- (f2);
+			\draw [very thick, blue!20] (f2) -- (f3);
+			\draw [very thick, blue!20] (f3) -- (f4);
+			\draw [very thick, blue!20] (f4) -- (f5);
+			\draw [very thick, blue!20] (f5) -- (10,2.5);
+			
+			\draw [very thick, orange!50] (0,0) -- (s1);
+			\draw [very thick, orange!50] (s1) -- (s2);
+			\draw [very thick, orange!50] (s2) -- (10,0);
+			
+			\draw[->] (s1)-- (f1) node[midway,left] {\scriptsize{$3mm$}};
+			\draw[->] (s1)-- (f2) node[midway,right] {\scriptsize{$3mm$}};
+			
+			\draw[->] (s2)-- (f3) node[midway,left] {\scriptsize{$1mm$}};
+			\draw[->] (s2)-- (f4) node[midway,right] {\scriptsize{$1mm$}};
+			\draw[->] (s2)-- (f5) node[midway,right] {\scriptsize{$1mm$}};
+			
+		\end{tikzpicture}
+			
+        \end{figure}
+    \end{exampleblock}
+
+
+\begin{itemize}
+    \item used for \textcolor{dblue}{\textbf{displacements}}
+    \item strategies:
+    \begin{itemize}
+        \item nearest neighbor (example above)
+        \item nearest projection
+        \item Radial Basis Functions
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Mapping}
+    \begin{exampleblock}{Conservative Mapping}
+        \begin{figure}[htbp!]
+	        \centering
+		\begin{tikzpicture}[scale=0.7]
+			\tikzstyle{n} = [draw, very thick, circle, minimum width=30]
+			\node [n,draw=blue!20] (f1) at (1,2.5) {\scriptsize{$3N$}};
+			\node [n,draw=blue!20] (f2) at (3,2.5) {\scriptsize{$1N$}};
+			\node [n,draw=blue!20] (f3) at (5,2.5) {\scriptsize{$4N$}};
+			\node [n,draw=blue!20] (f4) at (7,2.5) {\scriptsize{$2N$}};
+			\node [n,draw=blue!20] (f5) at (9,2.5) {\scriptsize{$3N$}};
+			\node [n,draw=orange!50] (s1) at (3,0) {\scriptsize{$6N$}};
+			\node [n,draw=orange!50] (s2) at (7,0) {\scriptsize{$7N$}};
+
+			\draw [very thick, blue!20] (0,2.5) -- (f1);
+			\draw [very thick, blue!20] (f1) -- (f2);
+			\draw [very thick, blue!20] (f2) -- (f3);
+			\draw [very thick, blue!20] (f3) -- (f4);
+			\draw [very thick, blue!20] (f4) -- (f5);
+			\draw [very thick, blue!20] (f5) -- (10,2.5);
+
+			\draw [very thick, orange!50] (0,0) -- (s1);
+			\draw [very thick, orange!50] (s1) -- (s2);
+			\draw [very thick, orange!50] (s2) -- (10,0);
+
+			\draw[->] (f1)-- (s1) node[midway,left] {\scriptsize{$3N$}};
+			\draw[->] (f2)-- (s1) node[midway,left] {\scriptsize{$1N$}};
+			\draw[->] (f3)-- (s1) node[midway,left] {\scriptsize{$2N$}};
+			\draw[->] (f3)-- (s2) node[midway,right] {\scriptsize{$2N$}};
+			\draw[->] (f4)-- (s2) node[midway,right] {\scriptsize{$2N$}};
+			\draw[->] (f5)-- (s2) node[midway,right] {\scriptsize{$3N$}};
+
+		\end{tikzpicture}
+
+        \end{figure}
+    \end{exampleblock}
+
+
+\begin{itemize}
+    \item used for \textcolor{dblue}{\textbf{forces}}
+    \item same strategies:
+    \begin{itemize}
+        \item nearest neighbor
+        \item nearest projection
+        \item Radial Basis Functions
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
 
 
 
