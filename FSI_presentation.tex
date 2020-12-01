@@ -1504,11 +1504,44 @@ At present time this setup \textcolor{red}{does not converge}
 
 
 \begin{frame}{Interface conditions}
-    
+    \begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.65\textwidth]{images/interface}
+	%\caption{fluid solid interface}
+\end{figure}
+
+\begin{itemize}
+    \item \textcolor{dorange}{kinematic conditions}:
+    \begin{itemize}
+        \item $\Delta \vec{x}_F = \vec{u}_S$
+        \item $\vec{v}_F = \frac{\partial \vec{u}_S}{\partial x}$ 
+    \end{itemize}
+    \item \textcolor{dblue}{equilibrium condition}:
+    \begin{itemize}
+        \item $\bm{\sigma_F} \cdot \hat{n}_F = \bm{\sigma_S} \cdot \hat{n}_S$
+    \end{itemize}
+    \end{itemize}
+
+
 \end{frame}
 
 
+\begin{frame}{Mesh movement}
+    \begin{figure}
 
+\centering
+\subfloat[$t=7.0s$]{\includegraphics[width=3cm]{images/mesh/m01.png}}\hfil
+\subfloat[$t=7.1s$]{\includegraphics[width=3cm]{images/mesh/m02.png}}\hfil 
+\subfloat[$t=7.2s$]{\includegraphics[width=3cm]{images/mesh/m03.png}} 
+
+\subfloat[$t=7.3s$]{\includegraphics[width=3cm]{images/mesh/m04.png}}\hfil   
+\subfloat[$t=7.4s$]{\includegraphics[width=3cm]{images/mesh/m05.png}}\hfil
+\subfloat[$t=7.0s$]{\includegraphics[width=3cm]{images/mesh/m06.png}}
+
+\end{figure}
+    
+    
+\end{frame}
 
 
 
