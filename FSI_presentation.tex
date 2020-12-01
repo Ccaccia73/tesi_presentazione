@@ -27,7 +27,7 @@
     %\titlegraphic{\includegraphics[height=2.7cm]{example_figure.pdf}}
 
 % (D) Add logo to bottom right-corner (optional)
-    \logo{\includegraphics[height=0.82cm]{images/logo-polimi.png}\hspace{12pt}\vspace{-6pt}}      
+    \logo{\includegraphics[height=0.82cm]{images/logo-polimi.png}\hspace{8pt}\vspace{-6pt}}      
 
 % (E) Choose one (or none) of these lines to add footline bar on all frames
     %\setbeamertemplate{footline}[infoline]  % author, title, insitute
@@ -1015,9 +1015,9 @@ At present time this setup \textcolor{red}{does not converge}
 \textcolor{pblue}{\textbf{Goals}}:
 
 \begin{itemize}
-    \item Exploit \textbf{MBDyn} capabilities to perform fluid-structure co-simulation
-    \item Integrate \textit{MBDyn} with \textbf{preCICE} to guarantee a common interface to multiple CFD solvers
-    \item validate the \textbf{FSI} simulation with the proposed setup
+    \item Exploit \textcolor{pblue}{\textbf{MBDyn}} capabilities to perform fluid-structure co-simulation
+    \item Integrate \textit{MBDyn} with \textcolor{pblue}{\textbf{preCICE}} to guarantee a common interface to multiple CFD solvers
+    \item validate the \textcolor{pblue}{\textbf{FSI}} simulation with the proposed setup
 \end{itemize}
 
 \pause
@@ -1027,8 +1027,8 @@ At present time this setup \textcolor{red}{does not converge}
 \textcolor{teal}{\textbf{Results}}:
 
 \begin{itemize}
-    \item the \textcolor{dblue}{\textbf{adapter}} has been developed and verified
-    \item Solutions comparable with benchmarks (bluff body, FSI2...)
+    \item the \textcolor{teal}{\textbf{adapter}} has been developed and verified
+    \item Solutions comparable with \textcolor{teal}{\textbf{benchmarks}} (bluff body, FSI2...)
 \end{itemize}
 
 \pause
@@ -1038,7 +1038,7 @@ At present time this setup \textcolor{red}{does not converge}
 \textcolor{dorange}{\textbf{Open points}}:
 
 \begin{itemize}
-    \item Convergence issues when \textit{mass ratio} $\rightarrow 1$ 
+    \item Convergence issues when \textcolor{red}{\textit{mass ratio}} $\rightarrow 1$ 
 \end{itemize}
 
 
@@ -1047,13 +1047,15 @@ At present time this setup \textcolor{red}{does not converge}
 
 \begin{frame}{Future Development}
 
-Three possible directions of further development:
+\textbf{Three} possible directions of further development:
+
+\vspace{0.3cm}
 
 \pause
 
 \begin{enumerate}
-    \item Software side
-        
+    \item \textcolor{pblue}{\textbf{Software side}}
+        \itemsep 10pt
         \begin{itemize}
             \item improve usability
             \item reduce/avoid redundancy
@@ -1062,7 +1064,7 @@ Three possible directions of further development:
 
 \pause
     
-    \item Simulation side
+    \item \textcolor{pblue}{\textbf{Simulation side}}
     
         \begin{itemize}
             \item Reduce, possibly solve, convergence issues with \textit{mass ratio}
@@ -1071,7 +1073,7 @@ Three possible directions of further development:
 
 \pause
     
-    \item Application side
+    \item \textcolor{pblue}{\textbf{Application side}}
     
         \begin{itemize}
             \item Find further, different benchmarks (other than incompressible flow), users and cases
@@ -1568,22 +1570,29 @@ To change to serif math everywhere
 
 
 
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_abudhabi.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/bp01mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 {
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_blueprint.jpg}}} 
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/bp02mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/cala02mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/cala03mg.jpg}}} 
 \begin{frame}[plain,noframenumbering]
     \titlepage
 \end{frame}
@@ -1591,115 +1600,120 @@ To change to serif math everywhere
 
 
 {
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_bokeh.jpg}}} 
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej01mg.jpg}}} 
 \begin{frame}[plain,noframenumbering]
     \titlepage
 \end{frame}
 }
 
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_cherry.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_chobe.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej02mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 
 {
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_columns.jpg}}} 
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew01mg.jpg}}} 
 \begin{frame}[plain,noframenumbering]
     \titlepage
 \end{frame}
 }
-
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_flowers.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_forest.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_leuven.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
 
 {
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_library.jpg}}} 
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew02mg.jpg}}} 
 \begin{frame}[plain,noframenumbering]
     \titlepage
 \end{frame}
 }
 
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_newyork.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew03mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew04mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew06mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew07mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_river.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_sanfrancisco.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/rotormg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_uyuni.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry01mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry02mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry03mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry04mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry05mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry06mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 
-
-%{
-%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_winter.jpg}}} 
-%\begin{frame}[plain,noframenumbering]
-%    \titlepage
-%\end{frame}
-%}
-
-
-
-
-
-
-
-
-
+{
+\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/sky01mg.jpg}}} 
+\begin{frame}[plain,noframenumbering]
+    \titlepage
+\end{frame}
+}
 
 
 
