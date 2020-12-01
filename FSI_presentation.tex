@@ -1098,14 +1098,86 @@ At present time this setup \textcolor{red}{does not converge}
 %\section*{further info}
 
 \setbeamercolor{background canvas}{bg=white}
-\begin{frame}{Explicit coupling}\label{couplingdetails}
-  bla1  
+\begin{frame}{weak coupling}\label{couplingdetails}
+
+
+  \begin{block}{staggered weak coupling}
+  \begin{center}
+  $
+  \left\{
+    \begin{aligned}
+        x_f^n&=\phi_f\left(x_f^n,x_f^{n-1},x_s^{n-1} \right) \\
+        x_s^n&=\phi_s\left(x_s^n,x_f^{n-1},x_s^{n} \right)
+    \end{aligned}
+    \right.
+  $
+      
+  \end{center}
+  \end{block}  
+
+
+  \begin{block}{parallel weak coupling}
+  \begin{center}
+  $
+  \left\{
+    \begin{aligned}
+        x_f^n&=\phi_f\left(x_f^n,x_f^{n-1},x_s^{n-1} \right) \\
+        x_s^n&=\phi_s\left(x_s^n,x_f^{n-1},x_s^{n-1} \right)
+    \end{aligned}
+    \right.
+  $
+  \end{center}
+  \end{block}  
+
+
+
+\begin{itemize}
+    \item implicit integration in time
+    \item no check on convergence (no energy balance)
+    \item order can be switched
+\end{itemize}
+
 \end{frame}
 
 
-\begin{frame}{Implicit coupling}
-  bla2
-  \hyperlink{coupling}{\beamerreturnbutton{}}
+\begin{frame}{strong coupling}
+  
+  \begin{block}{staggered strong coupling}
+  \begin{center}
+  $
+  \left\{
+    \begin{aligned}
+        x_f^{n,k}&=\phi_f\left(x_f^{n,k},x_f^{n,k-1},x_s^{n,k-1} \right) \\
+        x_s^{n,k}&=\phi_s\left(x_s^{n,k},x_f^{n,k-1},x_s^{n,k} \right)
+    \end{aligned}
+    \right.
+  $
+      
+  \end{center}
+  \end{block}  
+
+  
+  \begin{block}{parallel strong coupling}
+  \begin{center}
+  $
+  \left\{
+    \begin{aligned}
+        x_f^{n,k}&=\phi_f\left(x_f^{n,k},x_f^{n,k-1},x_s^{n,k-1} \right) \\
+        x_s^{n,k}&=\phi_s\left(x_s^{n,k},x_f^{n,k-1},x_s^{n,k-1} \right)
+    \end{aligned}
+    \right.
+  $
+  \end{center}
+  \end{block}  
+
+\begin{itemize}
+    \item implicit integration in time
+    \item k iteration of the same time step up to convergence
+    \item order can be switched
+\end{itemize}
+
+
+  \hyperlink{coupling}{\beamerreturnbutton{back}}
 \end{frame}
 
 
