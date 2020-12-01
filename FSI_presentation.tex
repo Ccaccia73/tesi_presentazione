@@ -358,7 +358,7 @@ when $\approx 1$
 
 \begin{frame}{\includegraphics[width=.18\textwidth]{images/mbdyn.png}}
 
-\textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software developed here at \textit{DAER}.\\
+\textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software developed at \textit{DAER}.\\
 
 
 \vspace{5mm}
@@ -980,7 +980,7 @@ At present time this setup \textcolor{red}{does not converge}
 \end{frame}
 
 \begin{frame}{Turek-Hron FSI3 Benchmark}
-
+\label{fsi2}
 \textbf{Sensitivity analysis}: change $\rho_F$ and $E$ 
 
 
@@ -1012,6 +1012,8 @@ At present time this setup \textcolor{red}{does not converge}
     \item visible patterns in number of iterations
 \end{itemize}
 
+
+\hyperlink{fsi1}{\beamergotobutton{FSI1 analysis}}
 
 \end{frame}
 
@@ -1421,9 +1423,89 @@ At present time this setup \textcolor{red}{does not converge}
 
 
 
+\begin{frame}{Turek-Hron FSI1 Benchmark}
+\label{fsi1}
+\textbf{Sensitivity analysis}: change $\rho_F$ and $E$ 
+
+
+\footnotesize
+\begin{center}
+		\begin{tabular}{ c | c | c c c c c |} 
+			&  & \multicolumn{5}{c|}{mass ratio} \\
+			
+			$U_R$ & E[\si{MPa}] & 0.1 & 0.2 & 0.25 & 0.5 & 1 \\
+			\hline
+			
+			$1.41\cdot 10^{-5}$ & $2\cdot 10^{5}$ & \cellcolor{green!10} & \cellcolor{green!10}2.138 & \cellcolor{green!10} & \cellcolor{green!10}2.146 & \cellcolor{green!10}3.064 \\
+			$6.32\cdot 10^{-5}$ & $1\cdot 10^{4}$ & \cellcolor{green!10} & \cellcolor{green!10} & \cellcolor{green!10}2.337 & \cellcolor{red!10} & \cellcolor{red!10} \\        
+			$2\cdot 10^{-4}$ & $1\cdot 10^{3}$ & \cellcolor{green!10} & \cellcolor{green!10}9.83 & \cellcolor{yellow!10} & \cellcolor{red!10} & \cellcolor{red!10} \\
+			$6.32\cdot 10^{-4}$ & $1\cdot 10^{2}$ & \cellcolor{green!10}8.688 & \cellcolor{green!10} & \cellcolor{yellow!10} 24.45 & \cellcolor{red!10} & \cellcolor{red!10} \\
+			$1.41\cdot 10^{-3}$ & $20$ & \cellcolor{green!10} & \cellcolor{yellow!10}18.238 & \cellcolor{yellow!10}38.398 & \cellcolor{red!10} & \cellcolor{red!10} \\
+			$2.67\cdot 10^{-3}$ & $5.6$ & \cellcolor{green!10}6.314 & \cellcolor{red!10} & \cellcolor{red!10} & \cellcolor{red!10} & \cellcolor{red!10}\textbf{FSI1} \\
+			\hline                        
+		\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\normalsize
+
+\textbf{Observations:}
+\begin{itemize}
+    \item convergence in fewer cases
+    \item Structural stiffness helps
+    \item visible patterns in number of iterations
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Turek-Hron FSI Benchmark}
+
+\textbf{Sensitivity analysis} at $Re=1000$: change $\rho_F$ and $E$ 
+
+
+\footnotesize
+\begin{center}
+		\begin{tabular}{ c | c | c c c c c |} 
+			&  & \multicolumn{5}{c|}{mass ratio} \\
+			
+			$U_R$ & E[\si{MPa}] & 0.1 & 0.2 & 0.25 & 0.5 & 1 \\
+			\hline
+			
+			$7.07\cdot 10^{-4}$ & $2\cdot 10^{5}$ & \cellcolor{green!10} & \cellcolor{green!10}5.552 & \cellcolor{green!10} & \cellcolor{green!10}6.706 & \cellcolor{green!10}8.647 \\
+			$3.16\cdot 10^{-3}$ & $1\cdot 10^{4}$ & \cellcolor{green!10}10.184 & \cellcolor{green!10} & \cellcolor{green!10} & \cellcolor{green!10} & \cellcolor{green!10}9.713 \\        
+			$1\cdot 10^{-2}$ & $1\cdot 10^{3}$ & \cellcolor{green!10} & \cellcolor{green!10}14.101 & \cellcolor{green!10}50.731 & \cellcolor{green!10} & \cellcolor{green!10}36.566 \\
+			$3.16\cdot 10^{-2}$ & $1\cdot 10^{2}$ & \cellcolor{green!10}10.640 & \cellcolor{green!10} & \cellcolor{green!10}17.122 & \cellcolor{red!10} & \cellcolor{red!10} \\
+			$7.07\cdot 10^{-2}$ & $20$ & \cellcolor{green!10} & \cellcolor{green!10}42.998 & \cellcolor{green!10}35.046 & \cellcolor{red!10} & \cellcolor{red!10} \\
+			$1.34\cdot 10^{-1}$ & $5.6$ & \cellcolor{green!10}11.725 & \cellcolor{red!10} & \cellcolor{red!10} & \cellcolor{red!10} & \cellcolor{red!10} \\
+			\hline                        
+		\end{tabular}
+	\end{center}
+
+\vspace{0.35cm}
+
+\normalsize
+
+\textbf{Observations:}
+\begin{itemize}
+    \item broader range of convergence
+    \item Structural stiffness helps
+    \item visible patterns in number of iterations
+\end{itemize}
+
+\vspace{0.25cm}
+
+\hyperlink{fsi2}{\beamerreturnbutton{back}}
+
+\end{frame}
 
 
 
+\begin{frame}{Interface conditions}
+    
+\end{frame}
 
 
 
