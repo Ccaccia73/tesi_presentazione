@@ -114,7 +114,7 @@ What is (not) FSI?
         \column{0.5\textwidth}
         \begin{figure}
             \centering
-            \includegraphics[width=0.95\textwidth,trim=0 25 0 0,clip]{images/valve_cfd.png}
+            \includegraphics[width=0.95\textwidth,trim=0 40 0 0,clip]{images/valve_cfd.png}
             \caption{CFD with moving domain}
         \end{figure}
     \end{columns}
@@ -1273,15 +1273,13 @@ At present time this setup \textcolor{red}{does not converge}
 \label{dimensionless}
 \begin{exampleblock}{Reduced velocity}
 
-\vspace{0.8cm}
-
 \begin{center}
     $U_R = \frac{V_0}{\sqrt{\frac{E}{\rho_S}}}$
 \end{center}
 
-
 \end{exampleblock}
 
+\vspace{0.8cm}
 
 \begin{itemize}
     \item ratio between the free fluid velocity and the velocity of elastic waves in a solid
@@ -1536,13 +1534,166 @@ At present time this setup \textcolor{red}{does not converge}
 
 \subfloat[$t=7.3s$]{\includegraphics[width=3cm]{images/mesh/m04.png}}\hfil   
 \subfloat[$t=7.4s$]{\includegraphics[width=3cm]{images/mesh/m05.png}}\hfil
-\subfloat[$t=7.0s$]{\includegraphics[width=3cm]{images/mesh/m06.png}}
+\subfloat[$t=7.5s$]{\includegraphics[width=3cm]{images/mesh/m06.png}}
 
 \end{figure}
     
     
 \end{frame}
 
+
+
+\begin{frame}{Flapping wing: experimental setup}
+    \begin{columns}
+    \column{0.5\textwidth}
+        \begin{figure}
+	    \centering
+	        \includegraphics[width=0.8\textwidth]{images/heathcote/profiles0012}
+	        \caption{wing section properties}
+        \end{figure}
+
+\footnotesize
+\begin{itemize}
+	\item $Re = \frac{\rho U_0 c}{\mu}$: $1\cdot10^4\div 3\cdot10^4$
+	\item $k_G = \frac{\pi f c}{U_0}$: Garrick reduced fr. $0 \div 7$
+	\item $S_r = \frac{2f a_{MID}}{U_0}$: at mid-span
+\end{itemize}
+
+
+
+    
+    \column{0.5\textwidth}
+        \begin{figure}
+	    \centering
+	        \includegraphics[width=0.87\textwidth]{images/heathcote/naca0012_exp}
+	        \caption{experimental setup}
+        \end{figure}
+
+\footnotesize
+\begin{itemize}
+	\item $s = a_{ROOT} \sin(\omega t)$
+	\item $C_T = \frac{T}{\frac{1}{2}\rho U_0^2c}$
+	\item $\bar{C}_P = \frac{\bar{F_y v}}{\frac{1}{2}\rho U_0^3c}$
+	\item $\frac{a_{TIP}}{a_{ROOT}}$ and  $\phi$
+\end{itemize}
+
+
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Flapping wing: simulation setup}
+    \begin{columns}
+    \column{0.5\textwidth}
+        \begin{figure}
+	    \centering
+	        \includegraphics[width=0.8\textwidth]{images/heathcote/dom02.png}
+	        \caption{fluid mesh}
+        \end{figure}
+        \vspace{0.25cm}
+        \footnotesize
+        \begin{itemize}
+            \item $\approx 218k$ cells
+            \item boundary conditions
+            \item incompressible flow
+        \end{itemize}
+
+    \column{0.5\textwidth}
+        \begin{figure}
+	    \centering
+	        \includegraphics[width=0.875\textwidth]{images/heathcote/interface01b.png}
+	        \caption{interface mesh}
+        \end{figure}
+        \vspace{0.25cm}
+        \footnotesize
+        \begin{itemize}
+            \item $\approx 1300$ interface cells
+            \item 10 MBdyn \texttt{beam} elements
+            \item stiffness given only by metal plate
+            \item mass of plate and PDMS
+        \end{itemize}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Flapping wing: preliminary results}
+
+    \begin{columns}
+    \column{0.5\textwidth}
+        \vspace{-0.5cm}
+        \begin{figure}
+	    \centering
+	        \includegraphics[width=0.98\textwidth, trim=0 60 0 60, clip]{images/heathcote/naca0012_disp.png}
+	        \caption{tip displacement}
+        \end{figure}
+        \vspace{0.15cm}
+
+    \column{0.5\textwidth}
+        \footnotesize
+        \begin{itemize}
+            \item $\pm2.5$ mm @ 2.5Hz
+            \item $Re=10000$, $k_G=0.785$, $S_r=0.015$
+            \item $\frac{a_{TIP}}{a_{ROOT}} \approx 1.45$
+            \item $\phi = 27^o$
+            \item Model first eigenfrequency $6.8Hz$
+            \item torsionally rigid $(< 0.1^o)$
+        \end{itemize}
+
+\end{columns}
+\footnotesize
+\textcolor{dorange}{\textbf{coupling}}:
+\begin{itemize}
+    \item staggered strong coupling
+    \item acceleration: \textcolor{pblue}{IQN-ILS}
+    \item mapping: \textcolor{teal}{RBF} or \textcolor{dblue}{nearest neighbor}
+    \item avg. number of iterations: \textbf{18}
+\end{itemize}
+
+    
+\end{frame}
+
+\begin{frame}{Flapping wing: preliminary results}
+
+    \begin{columns}
+
+    \column{0.5\textwidth}
+        \begin{figure}
+        \vspace{-0.25cm}
+	    \centering
+	        \includegraphics[width=0.975\textwidth, trim=0 150 0 120, clip]{images/heathcote/forces_naca0012.png}
+	        \caption{wing forces}
+        \end{figure}
+
+    \column{0.5\textwidth}
+        \footnotesize
+        \vspace{1.5cm}
+        \begin{itemize}
+            \item $\bar{C}_D\approx 0.02615$
+            \item experimental $0.0245\div0.028$
+            \item small Strouhal number to measure efficiency
+        \end{itemize}
+\end{columns}
+    
+\end{frame}
+
+\begin{frame}{Flapping wing: images}
+    \begin{figure}
+    \centering
+        \subfloat[velocity field $t=1.2s$]{\includegraphics[width=5cm]{images/heathcote/naca0012_U2.png}}\hfil
+        %\subfloat[$t=7.1s$]{\includegraphics[width=3cm]{images/mesh/m02.png}}\hfil 
+        \subfloat[pressure field $t=1.2s$]{\includegraphics[width=5cm]{images/heathcote/naca0012_p2.png}} 
+        
+        \subfloat[deformed shape (10x)]{\includegraphics[width=5cm]{images/heathcote/naca0012_dy.png}}\hfil   
+        %\subfloat[$t=7.4s$]{\includegraphics[width=3cm]{images/mesh/m05.png}}\hfil
+        \subfloat[$F_Y$]{\includegraphics[width=5cm]{images/heathcote/naca0012_Fy.png}}
+
+\end{figure}
+    
+    
+\end{frame}
 
 
 
