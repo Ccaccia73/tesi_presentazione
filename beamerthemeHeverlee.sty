@@ -16,7 +16,7 @@
     \definecolor{dorange} {RGB}{255,140,0}
     \definecolor{indigo} {RGB}{75,0,130}
     \definecolor{dblue}  {RGB}{0,0,139}
-    \definecolor{titlec} {RGB}{220,220,220}
+    \definecolor{titlec} {RGB}{255,255,255}
     
 % Text colours
 	\hypersetup{colorlinks,linkcolor=pblue,urlcolor=pblue} %link colors
@@ -139,11 +139,12 @@
 	\ifx\inserttitlegraphic\empty
     % when no title graphic is used:
 			\usebeamercolor[titlec]{}
-			\insertauthor
+			\vspace{75pt}
+			\textbf{\insertauthor}
 			
 			\vspace{6pt}
 			\insertinstitute
-			
+
 			\vspace{6pt}
 			\insertdate
 			\usebeamercolor[black]{}
