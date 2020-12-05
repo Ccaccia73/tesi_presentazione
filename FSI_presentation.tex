@@ -721,16 +721,16 @@ comparison made on \textbf{vertical tip displacement}
 \column{0.5\textwidth}
 
 \begin{figure}[htbp!]
-    \vspace{-1.8cm}
+    \vspace{-2.2cm}
 	\centering
-	\includegraphics[width=0.98\textwidth, trim=20 20 20 50, clip]{images/sq-cyl/disp_sq.png}
-	\caption{tip displacement}
+	\includegraphics[width=0.98\textwidth, trim=20 20 20 50, clip]{images/sq-cyl/disp_sq_pres.png}
+	%\caption{tip displacement}
 \end{figure}
 
 \column{0.5\textwidth}
 \scriptsize
 		\begin{tabular}{ l | c  c } 
-			Study & $f$ Hz & $d_{y}$ mm   \\ 
+			Study & $f$ [Hz] & $d_{y}$ [mm]   \\ 
 			\hline
             Wall and Ramm & $3.08$ & $13.1$ \\
             Kassiotis et al.& $2.98$ & $10.5$ \\
@@ -902,18 +902,33 @@ comparison made on \textbf{vertical tip displacement}
 
 \begin{frame}{Turek-Hron FSI2 Benchmark: results}
 
-comparison made on \textbf{tip displacements}:
+\begin{columns}
+
+\column{0.3\textwidth}
+%\vspace{1cm}
+comparison made on \\ \textbf{tip displacements}:
+
+\column{0.7\textwidth}
+
+
+\vspace{-1cm}
 \begin{figure}[htbp!]
     %\vspace{-1.8cm}
-	\centering
-	\includegraphics[width=0.6\textwidth, trim=20 20 20 50, clip]{images/FSI2/disp_fsi2.png}
+	%\centering
+	\includegraphics[width=0.9\textwidth, trim=20 20 20 20, clip]{images/FSI2/disp_fsi2_pres.png}
 \end{figure}
+
+
+\end{columns}
+
+
+
 
 
 \footnotesize
 \begin{center}
 \begin{tabular}{ l | c c | c c  |  } 
-	Study & $d_{x\,tip}$ \si{mm} & f \si{Hz} & $d_{y\,tip}$ \si{mm} & f \si{Hz} \\ 
+	Study & $d_{x\,tip}$ [\si{mm}] & f [\si{Hz}] & $d_{y\,tip}$ [\si{mm}] & f [\si{Hz}] \\ 
 	\hline
 	\hline
 	Benchmark & $-14.58\pm12.44$ & $3.8$ & $1.23\pm80.6$ & $2.0$ \\
@@ -932,13 +947,24 @@ comparison made on \textbf{tip displacements}:
 
 \begin{frame}{Turek-Hron FSI2 Benchmark: results}
 
-and on \textbf{overall lift and drag}:
+\begin{columns}
+
+\column{0.3\textwidth}
+%\vspace{1cm}
+and on\\ \textbf{overall lift and drag}:
+
+\column{0.7\textwidth}
+
+
+\vspace{-1cm}
+
 \begin{figure}[htbp!]
     %\vspace{-1.8cm}
 	\centering
-	\includegraphics[width=0.5\textwidth, trim=20 420 20 120, clip]{images/FSI2/forces_fsi2.png}
+	\includegraphics[width=0.9\textwidth, trim=20 40 20 20, clip]{images/FSI2/forces_fsi2_pres.png}
 \end{figure}
 
+\end{columns}
 
 \footnotesize
 \begin{center}
