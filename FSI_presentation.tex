@@ -76,18 +76,26 @@
 
 % Change image, or delete this line to remove background image
 % TODO get image
-{\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
+
+%{\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Background/bg_alishan.jpg}}} 
  %   abudhabi      cherry      forest      river
  %   alishan       chobe       leuven      sanfancisco
  %   blueprint     columns     library     uyuni
  %   bokeh         flowers     newyork     winter
 
-\setbeamercolor{background canvas}{bg=lgray}  % make background light gray
+%\setbeamercolor{background canvas}{bg=lgray}  % make background light gray
 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}		
+
+{\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew07mc.jpg}}} 
 \begin{frame}[plain,noframenumbering]
     \titlepage
 \end{frame}
-}		
+}
+
 
 % Table of contents slide
 \begin{frame}{Outline}
@@ -384,6 +392,44 @@ Open to perform multi-physics simulations:
 
 \end{frame}
 
+
+\begin{frame}{External Structural Mapping}
+
+\textcolor{red}{Decoupling geometry and structural properties:} 
+
+\begin{figure}
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/beams_1a.png}
+    \caption{Model: \textbf{nodes} and \textbf{beams}}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/interf_1a.png}
+    \caption{interface geometry: \textbf{shape}}
+  \end{subfigure}
+
+  \bigskip
+
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/mesh_1b.png}
+    \caption{interface mesh: \textbf{MLS mapping}}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.486\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/whole_1aa.png}
+    \caption{\textbf{coupling} to CFD solver}
+  \end{subfigure}
+\end{figure}
+
+
+\end{frame}
+
+
+
 \begin{frame}{\includegraphics[width=.22\textwidth]{images/precice.png}}
 
 \textbf{\textcolor{dorange}{pre}cise \textcolor{pblue}{C}ode \textcolor{pblue}{I}nteraction \textcolor{pblue}{C}oupling \textcolor{pblue}{E}nvironment}
@@ -396,7 +442,7 @@ Main features:
     \begin{itemize}
         \item connection of single-physics solvers
         \item partitioned multi-physics simulation: FSI, CHT, SSI
-        \item black-box: interface nodes 
+        \item black-box: information only on interface nodes 
     \end{itemize}
 
 \pause
@@ -448,40 +494,6 @@ Actions performed:
 
 \end{frame}
 
-\begin{frame}{External Structural Mapping}
-
-\textcolor{red}{Decoupling geometry and structural properties:} 
-
-\begin{figure}
-  \begin{subfigure}[t]{.486\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{images/beams_1a.png}
-    \caption{Model: \textbf{nodes} and \textbf{beams}}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{.486\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{images/interf_1a.png}
-    \caption{interface geometry: \textbf{shape}}
-  \end{subfigure}
-
-  \bigskip
-
-  \begin{subfigure}[t]{.486\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{images/mesh_1b.png}
-    \caption{interface mesh: \textbf{MLS mapping}}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{.486\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{images/whole_1aa.png}
-    \caption{\textbf{coupling} to CFD solver}
-  \end{subfigure}
-\end{figure}
-
-
-\end{frame}
 
 
 
@@ -596,26 +608,26 @@ Actions performed:
     
     \column{0.4\textwidth}
     	\scriptsize
-		\begin{tabular}{ c c | r } 
-			\multicolumn{2}{c|}{symbol} & value   \\ 
+		\begin{tabular}{ c | r } 
+			symbol & value [\si{mm}]  \\ 
 			\hline
-			H  & [\si{mm}] & $10$     \\
-			L & [\si{mm}] & $40$  \\
-			t  & [\si{mm}] & $0.6$  \\			
+			H & $10$     \\
+			L & $40$  \\
+			t & $0.6$  \\			
 		\end{tabular}
 
 		\vspace{1.5cm}
 		\begin{tabular}{ l c  | c } 
 			\multicolumn{2}{c|}{parameter} & value  \\ 
 			\hline
-			$\rho_F$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{blue!20} $1.18$   \\
-			$\mu$& $\left[\frac{kg}{ms}\right]$ & \cellcolor{blue!20} $1.82 \cdot 10^{-5}$  \\
+			$\rho_F$ & \si{kg.m^{-3}} & \cellcolor{blue!20} $1.18$   \\
+			$\mu$& \si{kg.m^{-1}.s^{-1}} & \cellcolor{blue!20} $1.82 \cdot 10^{-5}$  \\
 			Re &  & \cellcolor{blue!20} $332$ \\
-			$\vec{u}_{\infty}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $0.513$ \\
+			$\vec{u}_{\infty}$ & \si{m.s^{-1}} & \cellcolor{blue!20} $0.513$ \\
 			flow & & \cellcolor{blue!20} laminar \\
 			\hline
-			$\rho_S$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{orange!50} 100    \\
-			E & [\si{Pa}] & \cellcolor{orange!50} $2.5\cdot 10^5$    \\
+			$\rho_S$ & \si{kg.m^{-3}} & \cellcolor{orange!50} 100    \\
+			E & \si{Pa} & \cellcolor{orange!50} $2.5\cdot 10^5$    \\
 			\hline
 			$M$ & & $ \cellcolor{green!10} 1.18\cdot 10^{-2}$     \\
 			\hline
@@ -718,7 +730,7 @@ comparison made on \textbf{vertical tip displacement}
 \column{0.5\textwidth}
 \scriptsize
 		\begin{tabular}{ l | c  c } 
-			Study & $f$ [Hz] & $d_{y}$ [mm]   \\ 
+			Study & $f$ Hz & $d_{y}$ mm   \\ 
 			\hline
             Wall and Ramm & $3.08$ & $13.1$ \\
             Kassiotis et al.& $2.98$ & $10.5$ \\
@@ -772,30 +784,30 @@ comparison made on \textbf{vertical tip displacement}
     
     \column{0.4\textwidth}
     	\scriptsize
-		\begin{tabular}{ c c | r } 
-			\multicolumn{2}{c|}{symbol} & value   \\
+		\begin{tabular}{ c | r } 
+			symbol & value [m]  \\
 			\hline
-			H  & [\si{m}] & $0.41$     \\
-			L &  [\si{m}] & $2.5$  \\
-			l  & [\si{m}] & $0.35$  \\
-			h  & [\si{m}] & $0.02$  \\
-			C  & [\si{m}] & $\left(0.2,0.2 \right)$  \\
-			r  & [\si{m}] & $0.05$  \\
+			H  & $0.41$     \\
+			L  & $2.5$  \\
+			l  & $0.35$  \\
+			h  & $0.02$  \\
+			C  & $\left(0.2,0.2 \right)$  \\
+			r  & $0.05$  \\
 			\end{tabular}
 
 		\vspace{0.5cm}
 		\begin{tabular}{ l c  | c } 
 			\multicolumn{2}{c|}{parameter} & value  \\ 
 			\hline
-			$\rho_F$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{blue!20} $1000$   \\
-			$\nu$& $\left[\frac{m^2}{s}\right]$ & \cellcolor{blue!20} $1 \cdot 10^{-3}$  \\
+			$\rho_F$ & \si{kg.m^{-3}} & \cellcolor{blue!20} $1000$   \\
+			$\nu$& \si{m^2.s^{-1}} & \cellcolor{blue!20} $1 \cdot 10^{-3}$  \\
 			Re &  & \cellcolor{blue!20} $100$ \\
-			$\vec{u}_{max}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $1.5$ \\
-			$\bar{u}$ & $\left[\frac{m}{s}\right]$ & \cellcolor{blue!20} $1$ \\
+			$\vec{u}_{max}$ & \si{m.s^{-1}} & \cellcolor{blue!20} $1.5$ \\
+			$\bar{u}$ & \si{m.s^{-1}} & \cellcolor{blue!20} $1$ \\
 			flow & & \cellcolor{blue!20} laminar \\
 			\hline
-			$\rho_S$ & $\left[\frac{kg}{m^3}\right]$ & \cellcolor{orange!50} $10000$    \\
-			E & [\si{Pa}] & \cellcolor{orange!50} $1.4\cdot 10^6$    \\
+			$\rho_S$ & \si{kg.m^{-3}} & \cellcolor{orange!50} $10000$    \\
+			E & \si{Pa} & \cellcolor{orange!50} $1.4\cdot 10^6$    \\
 			\hline
 			$M$ & & $ \cellcolor{green!10} 0.1$     \\
 			\hline
@@ -901,7 +913,7 @@ comparison made on \textbf{tip displacements}:
 \footnotesize
 \begin{center}
 \begin{tabular}{ l | c c | c c  |  } 
-	Study & $d_{x\,tip}$ [\si{mm}] & f [\si{Hz}] & $d_{y\,tip}$ [\si{mm}] & f [\si{Hz}] \\ 
+	Study & $d_{x\,tip}$ \si{mm} & f \si{Hz} & $d_{y\,tip}$ \si{mm} & f \si{Hz} \\ 
 	\hline
 	\hline
 	Benchmark & $-14.58\pm12.44$ & $3.8$ & $1.23\pm80.6$ & $2.0$ \\
@@ -914,7 +926,7 @@ comparison made on \textbf{tip displacements}:
     
 \end{center}
 \vspace{0.2cm}
-Axial flexibility of beams?
+% Axial flexibility of beams?
 
 \end{frame}
 
@@ -931,7 +943,7 @@ and on \textbf{overall lift and drag}:
 \footnotesize
 \begin{center}
 \begin{tabular}{ l | c c | c c  |  } 
-	Study & drag [\si{N.m^{-1}}] & f [\si{Hz}] & lift [\si{N.m^{-1}}] & f [\si{Hz}]    \\ 
+	Study & drag \si{N.m^{-1}} & f \si{Hz} & lift \si{N.m^{-1}} & f \si{Hz}    \\ 
 	\hline
 	\hline
 	Benchmark & $208.83\pm73.75$ & $3.8$ & $0.88\pm234.2$ & $2.0$     \\
@@ -954,10 +966,10 @@ and on \textbf{overall lift and drag}:
 \begin{tabular}{ l c l | c | c } 
 	\multicolumn{3}{c|}{parameter} & FSI2 & FSI3   \\ 
 	\hline
-	solid density  &  $\rho$ & [\si{kg.m^{-3}}] & $10000$ & $1000$     \\
-	Elastic modulus  & E & [\si{Pa}] & $1.4\cdot 10^6$ & $5.6\cdot 10^6$   \\
-	max flow velocity & $\vec{u}_{max}$ & [\si{m.s^{-1}}] & $1.5$ & $3$ \\
-	mean flow velocity & $\vec{u}$ & [\si{m.s^{-1}}] & $1$ & $2$  \\
+	solid density  &  $\rho$ & \si{kg.m^{-3}} & $10000$ & $1000$     \\
+	Elastic modulus  & E & \si{Pa} & $1.4\cdot 10^6$ & $5.6\cdot 10^6$   \\
+	max flow velocity & $\vec{u}_{max}$ & \si{m.s^{-1}} & $1.5$ & $3$ \\
+	mean flow velocity & $\vec{u}$ & \si{m.s^{-1}} & $1$ & $2$  \\
     \hline
     mass number  &  $M$ & & \cellcolor{red!10} $0.1$ & \cellcolor{red!10} $1$     \\
 	reduced velocity & $U_R$ & & $8.45 \cdot 10^{-2}$  & $2.67\cdot 10^{-2}$  \\
@@ -989,7 +1001,7 @@ At present time this setup \textcolor{red}{does not converge}
 	\begin{tabular}{ c | c | c c c c c |} 
 	&  & \multicolumn{5}{c|}{mass ratio} \\
 		
-	$U_R$ & E[\si{MPa}] & 0.1 & 0.2 & 0.25 & 0.5 & 1 \\
+	$U_R$ & E \si{MPa} & 0.1 & 0.2 & 0.25 & 0.5 & 1 \\
 	\hline
     $1.41\cdot 10^{-4}$ & $2\cdot 10^{5}$ & \cellcolor{green!10}2.204 & \cellcolor{green!10} & \cellcolor{green!10}2.618 & \cellcolor{green!10}3.126 & \cellcolor{green!10}4.418 \\
 	$6.32\cdot 10^{-4}$ & $1\cdot 10^{4}$ & \cellcolor{green!10} & \cellcolor{green!10}15.024 & \cellcolor{green!10}43.1 & \cellcolor{red!10} & \cellcolor{red!10} \\        
