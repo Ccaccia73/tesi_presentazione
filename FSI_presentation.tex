@@ -110,37 +110,6 @@
 \section[FSI techniques]{FSI solution techniques}
 
 
-\begin{frame}{FSI}
-What is (not) FSI?
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.95\textwidth]{images/valve.png}
-            \caption{FEM with pressure load}
-        \end{figure}
-        \column{0.5\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.95\textwidth,trim=0 40 0 0,clip]{images/valve_cfd.png}
-            \caption{CFD with moving domain}
-        \end{figure}
-    \end{columns}
-    
-    \pause
-    
-    \begin{enumerate}
-        \item fluid represented as a pressure field
-        
-        \item solid considered rigid
-    \end{enumerate}
-    
-    \vskip 5mm
-    
-   \textcolor{red}{Only one domain (solid/fluid) needs to be simulated}
-    
-    
-\end{frame}
 
 
 \begin{frame}{FSI}
@@ -149,7 +118,7 @@ What is FSI?
     \begin{itemize}
         \item fluid forces change the shape of the structure
         
-        \item structure deformation change the fluid domain and the flow
+        \item structure deformation changes the fluid domain and the flow
     \end{itemize}
     
 
@@ -222,8 +191,8 @@ What is FSI?
 %\column{0.4\textwidth}
     \begin{itemize}
         \itemsep 5pt
+        \item \textcolor{teal}{\textbf{shared interface}}
         \item specialized \textit{ad hoc} solver
-        \item shared interface
         \item difficult to develop and maintain
     \end{itemize}
 
@@ -302,16 +271,16 @@ What is FSI?
         
         \begin{enumerate}
             \itemsep 5pt
-            \item coupling must be enforced (\textcolor{teal}{equilibrium} and \textcolor{pblue}{congruence})
+            \item coupling must be enforced (\textcolor{teal}{equilibrium} and \textcolor{pblue}{compatibility})
             \item the solution is \textcolor{red}{exact} up to some convergence criteria
         \end{enumerate}
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Explicit vs. Implicit coupling}
+\begin{frame}{Weak vs. strong coupling}
 
-\begin{block}{Explicit coupling}
+\begin{block}{Weak coupling}
 Solvers:
 \begin{itemize}
     \item \textcolor{dblue}{compute}
@@ -324,7 +293,7 @@ No convergence criteria are applied. It might be unstable.
 \pause
 
 \vspace{5mm}
-\begin{exampleblock}{Implicit coupling}
+\begin{exampleblock}{Strong coupling}
 Solvers iterate \textcolor{dblue}{computation} and \textcolor{fgreen}{data exchange} until some convergence criteria are met. Then \textcolor{dorange}{advance} to next time step.
 \end{exampleblock}
 \label{coupling}
@@ -335,20 +304,27 @@ Solvers iterate \textcolor{dblue}{computation} and \textcolor{fgreen}{data excha
 \begin{frame}{Added Mass Instability}
 \label{addedmass}
 \begin{alertblock}{convergence issues}
-A critical simulation parameter:
-$
-    M = \frac{\rho_F}{\rho_S}
-$
+A critical simulation parameter
 
-when $\approx 1$
+\begin{center}
+    \textcolor{red}{\textbf{mass ratio}}: $M = \frac{\rho_F}{\rho_S}$ 
+\end{center}
+
+    
+
+
+\vspace{0.1cm}
+\textbf{critical} when $\approx 1$
+\vspace{0.1cm}
+
 
 \end{alertblock}
 
 \vspace{0.8cm}
 
     \begin{itemize}
-        \item Explicit coupling may diverge
-        \item Implicit coupling requires many iterations to converge or may diverge 
+        \item \textbf{Weak coupling} may \textcolor{red}{diverge}
+        \item \textbf{Strong coupling} requires \textcolor{dorange}{many iterations} to converge or may \textcolor{red}{diverge}
     \end{itemize}
 
 \vspace{0.8cm}
@@ -364,9 +340,9 @@ when $\approx 1$
 
 \section{MBDyn and preCICE}
 
-\begin{frame}{\includegraphics[width=.18\textwidth]{images/mbdyn.png}}
+\begin{frame}{\includegraphics[width=.18\textwidth]{images/mbdyn.png} }
 
-\textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software developed at \textit{DAER}.\\
+\textbf{\textcolor{dorange}{M}ulti\textcolor{dorange}{B}ody \textcolor{red}{DYN}amics analysis} software (\url{www.mbdyn.org}).\\
 
 
 \vspace{5mm}
@@ -376,9 +352,8 @@ Main features:
     \begin{itemize}
         \item simulation of linear and non-linear \textbf{\textcolor{dorange}{dynamics}}
         \item definition of rigid and flexible elements:\\ \textbf{\textcolor{dblue}{beams}}, shells, component mode synthesis elements...
-        \item subject to various \textbf{\textcolor{pblue}{kinematic constraints}}
-        \item loaded by \textbf{\textcolor{fgreen}{external forces}}
-        \item possibly governed by \textbf{\textcolor{indigo}{control subsystems}}
+        \item subject to \textbf{\textcolor{pblue}{kinematic constraints}} and \textbf{\textcolor{indigo}{external forces}}
+        \item possibly governed by \textbf{\textcolor{fgreen}{control subsystems}}
     \end{itemize}
 
 \pause
@@ -386,8 +361,14 @@ Main features:
 
 Open to perform multi-physics simulations:
 \begin{itemize}
-    \item \textbf{pass} externally computed forces
-    \item \textbf{steer} the simulation
+    \item \textcolor{teal}{\textbf{map}} between \textit{nodes} and external points:
+    \begin{itemize}
+    \footnotesize
+        \item \textcolor{fgreen}{\textbf{pass}} externally computed forces to MBDyn
+        \item \textcolor{indigo}{\textbf{retrieve}} point displacements
+    \end{itemize}
+    \normalsize
+    \item \textcolor{teal}{\textbf{steer}} the simulation
 \end{itemize}
 
 \end{frame}
@@ -432,7 +413,7 @@ Open to perform multi-physics simulations:
 
 \begin{frame}{\includegraphics[width=.22\textwidth]{images/precice.png}}
 
-\textbf{\textcolor{dorange}{pre}cise \textcolor{pblue}{C}ode \textcolor{pblue}{I}nteraction \textcolor{pblue}{C}oupling \textcolor{pblue}{E}nvironment}
+\textbf{\textcolor{dorange}{pre}cise \textcolor{pblue}{C}ode \textcolor{pblue}{I}nteraction \textcolor{pblue}{C}oupling \textcolor{pblue}{E}nvironment} (\url{www.precice.org})
 
 %\pause
 \vspace{5mm}
@@ -511,15 +492,15 @@ Actions performed:
     
     \begin{itemize}
      \itemsep 8pt
-        \item independent from MBDyn code
-        \item APIs from preCICE and MBDyn:
+        \item \textcolor{teal}{\textbf{independent}} from MBDyn code
+        \item \textcolor{dblue}{\textbf{APIs}} from preCICE and MBDyn:
         \begin{enumerate}
             \itemsep 5pt
-            \item \texttt{libprecice.so}
-            \item \texttt{libmbc.so} 
+            \item \texttt{libprecice.so}   \hspace{0.6cm} (from MBDyn)
+            \item \texttt{libmbc.so}       \hspace{1.27cm}    (from preCICE)
         \end{enumerate}
         
-        \item composed of 2 C++ classes:
+        \item composed of 2 C++ \textcolor{indigo}{\textbf{classes}}:
         \begin{enumerate}
             \itemsep 5pt
             \item perform co-simulation
@@ -530,30 +511,31 @@ Actions performed:
 \end{frame}
 
 \begin{frame}{Adapter Input}
-
+  \vspace{1.5cm}
   \begin{description}[Simulation]
+  \itemsep 10pt
   \item[preCICE] \textcolor{dorange}{config file, participant name, ...}
   \item[MBDyn]      \textcolor{red}{simulation file} \\
                     \textcolor{red}{socket}: send forces and retrieve displacements \\
   \item[Simulation] \textcolor{teal}{mesh location}: used for coupling and mapping\\
                     \textcolor{teal}{data to pass}: displacements or deltas\\
                     \textcolor{teal}{starting ramp configuration}: type, period, ...
-  \item[Output]     \textcolor{indigo}{vtk file}: location, name, time interval, ...\\
-                    \textcolor{indigo}{resultants}: name, origin for moments, ...
+%  \item[Output]     \textcolor{indigo}{vtk file}: location, name, time interval, ...\\
+%                    \textcolor{indigo}{resultants}: name, origin for moments, ...
   \end{description}
 
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.5\textwidth, trim=0 45 0 50,clip]{images/coeff_pres.png}
-        \caption{scaling factor at start}
-    \end{figure}
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.5\textwidth, trim=0 45 0 50,clip]{images/coeff_pres.png}
+%        \caption{scaling factor at start}
+%    \end{figure}
 
 \end{frame}
 
 \begin{frame}{Adapter Output}
 
 \begin{description}[saved data]
-    \item[*.vtu files] at each mapped node: \\
+    \item[*.vtu files] at each mapped interface point: \\
                     \textcolor{dorange}{Displacements}, \textcolor{red}{Deltas}\\ 
                     \textcolor{dblue}{Velocities}\\
                     \textcolor{teal}{Forces}
@@ -584,7 +566,7 @@ Actions performed:
 
 \section{Test Cases}
 
-\begin{frame}{Square Bluff Body: domain}
+\begin{frame}{Square Bluff Body (Wall 1998): domain}
 
 \begin{columns}
     \column{0.6\textwidth}
@@ -685,6 +667,7 @@ Actions performed:
 
 \footnotesize
 \begin{itemize}
+    \itemsep 10pt
     \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
     \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
     \begin{itemize}
@@ -758,7 +741,7 @@ comparison made on \textbf{vertical tip displacement}
 
 
 
-\begin{frame}{Turek-Hron FSI2 Benchmark: domain}
+\begin{frame}{Turek-Hron FSI2 Benchmark (turek et. al 2006): domain}
 
 
 \begin{columns}
@@ -877,6 +860,7 @@ comparison made on \textbf{vertical tip displacement}
 
 \footnotesize
 \begin{itemize}
+    \itemsep 10pt
     \item \textbf{MBDyn} model: 10 \texttt{beam3} elements
     \item \textbf{OpenFOAM} model: \texttt{pimpleFOAM}
     \begin{itemize}
@@ -945,44 +929,7 @@ comparison made on \\ \textbf{tip displacements}:
 
 \end{frame}
 
-\begin{frame}{Turek-Hron FSI2 Benchmark: results}
 
-\begin{columns}
-
-\column{0.3\textwidth}
-%\vspace{1cm}
-and on\\ \textbf{overall lift and drag}:
-
-\column{0.7\textwidth}
-
-
-\vspace{-1cm}
-
-\begin{figure}[htbp!]
-    %\vspace{-1.8cm}
-	\centering
-	\includegraphics[width=0.9\textwidth, trim=20 40 20 20, clip]{images/FSI2/forces_fsi2_pres.png}
-\end{figure}
-
-\end{columns}
-
-\footnotesize
-\begin{center}
-\begin{tabular}{ l | c c | c c  |  } 
-	Study & drag \si{N.m^{-1}} & f \si{Hz} & lift \si{N.m^{-1}} & f \si{Hz}    \\ 
-	\hline
-	\hline
-	Benchmark & $208.83\pm73.75$ & $3.8$ & $0.88\pm234.2$ & $2.0$     \\
-	Turek et al. (2010) & $215.06\pm77.63$ & $3.86$ & $0.61\pm237.8$ & $1.93$\\   
-	Gjertsen & $161.50\pm73.75$ & & $0.88\pm234.2$ & \\
-	Degroote  & $217.52\pm84.65$ & $3.7$ & $-0.74\pm267.6$ & $1.9$ \\
-	\hline
-	Present study & $239.13\pm31.93$ & $3.87$ & $3.43\pm308.57$ & $1.93$ \\
-\end{tabular}
-    
-\end{center}
-
-\end{frame}
 
 
 \begin{frame}{Turek-Hron FSI3 Benchmark}
@@ -1741,20 +1688,94 @@ At present time this setup \textcolor{red}{does not converge}
 
 
 
-
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/bp01mg.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
+\begin{frame}{FSI}
+What is (not) FSI?
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth]{images/valve.png}
+            \caption{FEM with pressure load}
+        \end{figure}
+        \column{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.95\textwidth,trim=0 40 0 0,clip]{images/valve_cfd.png}
+            \caption{CFD with moving domain}
+        \end{figure}
+    \end{columns}
+    
+    \pause
+    
+    \begin{enumerate}
+        \item fluid represented as a pressure field
+        
+        \item solid considered rigid
+    \end{enumerate}
+    
+    \vskip 5mm
+    
+   \textcolor{red}{Only one domain (solid/fluid) needs to be simulated}
+    
+    
 \end{frame}
-}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/bp01mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
+\begin{frame}{Turek-Hron FSI2 Benchmark: results}
+
+\begin{columns}
+
+\column{0.3\textwidth}
+%\vspace{1cm}
+and on\\ \textbf{overall lift and drag}:
+
+\column{0.7\textwidth}
+
+
+\vspace{-1cm}
+
+\begin{figure}[htbp!]
+    %\vspace{-1.8cm}
+	\centering
+	\includegraphics[width=0.9\textwidth, trim=20 40 20 20, clip]{images/FSI2/forces_fsi2_pres.png}
+\end{figure}
+
+\end{columns}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{ l | c c | c c  |  } 
+	Study & drag \si{N.m^{-1}} & f \si{Hz} & lift \si{N.m^{-1}} & f \si{Hz}    \\ 
+	\hline
+	\hline
+	Benchmark & $208.83\pm73.75$ & $3.8$ & $0.88\pm234.2$ & $2.0$     \\
+	Turek et al. (2010) & $215.06\pm77.63$ & $3.86$ & $0.61\pm237.8$ & $1.93$\\   
+	Gjertsen & $161.50\pm73.75$ & & $0.88\pm234.2$ & \\
+	Degroote  & $217.52\pm84.65$ & $3.7$ & $-0.74\pm267.6$ & $1.9$ \\
+	\hline
+	Present study & $239.13\pm31.93$ & $3.87$ & $3.43\pm308.57$ & $1.93$ \\
+\end{tabular}
+    
+\end{center}
+
 \end{frame}
-}
+
+
+
+
+
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/bp01mg.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
+
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwi%dth]{Personal_BG/bp01mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 
@@ -1781,34 +1802,34 @@ At present time this setup \textcolor{red}{does not converge}
 %}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej01mg.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej01mg.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej01mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej01mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej02mg.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej02mg.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej02mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ej02mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 %{
@@ -1846,12 +1867,12 @@ At present time this setup \textcolor{red}{does not converge}
 %\end{frame}
 %}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew07mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ew07mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 
 %{
@@ -1862,12 +1883,12 @@ At present time this setup \textcolor{red}{does not converge}
 %}
 
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry01mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry01mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 %{
 %\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry02mg.jpg}}} 
@@ -1876,12 +1897,12 @@ At present time this setup \textcolor{red}{does not converge}
 %\end{frame}
 %}
 
-{
-\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry03mc.jpg}}} 
-\begin{frame}[plain,noframenumbering]
-    \titlepage
-\end{frame}
-}
+%{
+%\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paperwidth]{Personal_BG/ry03mc.jpg}}} 
+%\begin{frame}[plain,noframenumbering]
+%    \titlepage
+%\end{frame}
+%}
 
 %{
 %\usebackgroundtemplate{ \parbox[b][\paperheight][b]{\paperwidth}{\centering\includegraphics[width=\paper%width]{Personal_BG/ry04mg.jpg}}} 
